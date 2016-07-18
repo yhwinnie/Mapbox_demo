@@ -1,0 +1,63 @@
+PODS:
+  - Alamofire (3.4.1)
+  - AlamofireImage (2.4.0):
+    - Alamofire (~> 3.3)
+  - AlamofireNetworkActivityIndicator (1.0.1):
+    - Alamofire (~> 3.3)
+  - HMSegmentedControl (1.5.2)
+  - Mapbox-iOS-SDK (3.2.3)
+  - MapboxDirections.swift (0.6.0):
+    - Polyline (~> 3.2)
+  - MapboxGeocoder.swift (0.5.0)
+  - MXPagerView (0.1.3)
+  - MXParallaxHeader (0.5.1)
+  - MXSegmentedPager (3.0.5):
+    - HMSegmentedControl (~> 1.5.2)
+    - MXPagerView (~> 0.1.3)
+    - MXParallaxHeader (~> 0.5.1)
+  - Polyline (3.2.1)
+  - SwiftyJSON (2.3.2)
+
+DEPENDENCIES:
+  - Alamofire
+  - AlamofireImage
+  - AlamofireNetworkActivityIndicator
+  - Mapbox-iOS-SDK (~> 3.2.3)
+  - MapboxDirections.swift (from `https://github.com/mapbox/MapboxDirections.swift.git`, tag `v0.6.0`)
+  - MapboxGeocoder.swift (from `https://github.com/mapbox/MapboxGeocoder.swift.git`, tag `v0.5.0`)
+  - MXSegmentedPager
+  - SwiftyJSON
+
+EXTERNAL SOURCES:
+  MapboxDirections.swift:
+    :git: https://github.com/mapbox/MapboxDirections.swift.git
+    :tag: v0.6.0
+  MapboxGeocoder.swift:
+    :git: https://github.com/mapbox/MapboxGeocoder.swift.git
+    :tag: v0.5.0
+
+CHECKOUT OPTIONS:
+  MapboxDirections.swift:
+    :git: https://github.com/mapbox/MapboxDirections.swift.git
+    :tag: v0.6.0
+  MapboxGeocoder.swift:
+    :git: https://github.com/mapbox/MapboxGeocoder.swift.git
+    :tag: v0.5.0
+
+SPEC CHECKSUMS:
+  Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
+  AlamofireImage: 87408b652e0f5ae5fe364035f15aea8b9b24c77e
+  AlamofireNetworkActivityIndicator: 49a6e39afb947136f7b1872bae2d684957c26697
+  HMSegmentedControl: 83b9686022d2176fb6457d2bdb61e5d6393fed7d
+  Mapbox-iOS-SDK: 120e8a140e9cd4adae8227340dd89f5cc3850259
+  MapboxDirections.swift: 144cefb4386d419f916ce27928834c28bbaafb4f
+  MapboxGeocoder.swift: 4fbe12e42458db895ff73739c69743c943d0824e
+  MXPagerView: db0c020aeada6a0c704f18f8053468560e346982
+  MXParallaxHeader: b40fabd42d1bb76f6d1a713ceae5628f69241bd6
+  MXSegmentedPager: 0f8ef591d510dc8b5531219d6f3bbaaacf3eb305
+  Polyline: 4579e57a62a5e876944c41884194e24ab7021d89
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+
+PODFILE CHECKSUM: 9208b1a00563adb48a905044b5c8b12f830cd21a
+
+COCOAPODS: 1.0.1
