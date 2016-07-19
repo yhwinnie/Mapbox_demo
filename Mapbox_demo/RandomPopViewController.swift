@@ -26,6 +26,10 @@ class RandomPopViewController: UIViewController {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     
+    var indexSelected: Int = 0
+    let serviceManager = ServiceManager()
+
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,9 +39,9 @@ class RandomPopViewController: UIViewController {
         randomPopUpView.layer.borderWidth = 0.5
         randomPopUpView.clipsToBounds = true
         
-        let serviceManager = ServiceManager()
         
-        serviceManager.randomRestaurantsRequest { (restaurant) in
+        print(indexSelected)
+        serviceManager.randomRestaurantsRequest(indexSelected) { (restaurant) in
             dispatch_async(dispatch_get_main_queue(), {
                 self.restaurantName.text = restaurant.name
                 self.addressLabel.text = restaurant.address
@@ -52,9 +56,31 @@ class RandomPopViewController: UIViewController {
     }
     
     
+    @IBAction func skipAction(sender: AnyObject) {
+        
+        serviceManager.randomRestaurantsRequest(indexSelected) { (restaurant) in
+            dispatch_async(dispatch_get_main_queue(), {
+                self.restaurantName.text = restaurant.name
+                self.addressLabel.text = restaurant.address
+                self.hoursLabel.text = restaurant.hours
+                self.ratingLabel.text = restaurant.rating
+                self.tipsLabel.text = restaurant.tips
+                self.priceLabel.text = restaurant.price
+                self.distanceLabel.text = restaurant.distance
+                self.loadPoster(restaurant.imageURL)
+            })
+        }
+        
+    }
+    @IBOutlet weak var skipButton: UIButton!
     func loadPoster(urlString: String) {
         restaurantImageView.af_setImageWithURL(NSURL(string: urlString)!)
     }
+    
+    @IBAction func goButton(sender: AnyObject) {
+        //self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 

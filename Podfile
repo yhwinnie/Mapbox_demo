@@ -13,7 +13,8 @@ target 'Mapbox_demo' do
   	pod 'Alamofire'
   	pod 'AlamofireImage'
   	pod 'AlamofireNetworkActivityIndicator'
-	pod 'MXSegmentedPager'
+	pod 'ACTabScrollView', :git => 'https://github.com/azurechen/ACTabScrollView.git'
+
 
 
 

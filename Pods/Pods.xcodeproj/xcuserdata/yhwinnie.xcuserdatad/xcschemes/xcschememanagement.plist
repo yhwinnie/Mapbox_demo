@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>ACTabScrollView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Alamofire.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -15,26 +20,6 @@
 			<false/>
 		</dict>
 		<key>AlamofireNetworkActivityIndicator.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>HMSegmentedControl.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>MXPagerView.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>MXParallaxHeader.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>MXSegmentedPager.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -72,11 +57,6 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>17736680AC54362DAA3AA143E4646629</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>1C080055654F530AA845FF3429077B74</key>
 		<dict>
 			<key>primary</key>
@@ -87,7 +67,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>71C1DF39EE1271EA1147F993CA1439A0</key>
+		<key>3C0959C8F734D8C3E805622E466D83F8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>66EF50F88B70A9E306D97DCB1747DD84</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -107,22 +92,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A205DA5DBDBE8C9657436A911D82C5B3</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>AB5983EA001CF635B04348D3D4F0F5D5</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>AE58340C183B963C900C9FF91F7C3E95</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D079D9AA985DDABC43ED482FC2FB3E00</key>
+		<key>94ACD1005500D787C5A88C2A3E1DC5BB</key>
 		<dict>
 			<key>primary</key>
 			<true/>

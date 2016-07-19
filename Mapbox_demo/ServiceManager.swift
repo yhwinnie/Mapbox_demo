@@ -11,16 +11,198 @@ import Alamofire
 import SwiftyJSON
 import AlamofireImage
 import AlamofireNetworkActivityIndicator
+import CoreLocation
+import Mapbox
+import MapboxGeocoder
+import MapboxDirections
 
 
 class ServiceManager {
     
+    
+    var searchBarText = NSUserDefaults.standardUserDefaults().objectForKey("searchBarText")
+
     let base_url = "https://api.foursquare.com/v2/venues/"
+    
+    func requestActivitiesPlaces(searchBarText: String?, complete: (activitiesPlacesList: [Pin], coordinates: CLLocationCoordinate2D) -> Void) {
+        print(searchBarText)
+        
+        convertAddressToLatLon(searchBarText!) { (coordinates) in
+            
+        
+        let lat = coordinates.latitude
+        let lng = coordinates.longitude
+    
+        
+        let apiToContact = "\(self.base_url)explore?client_id=ABW3YVX4M52IS4PN4IORDRFCLQNJIEWPOVLX4GPY2JESYNV1&client_secret=OKMOA1GKFNDRPMQTAVRSRPBWFWHY3HDWH3GM2NK0SENT2VSQ&v=20130815&ll=\(lat),\(lng)&query=outdoors&openNow=1"
+        
+        Alamofire.request(.GET, apiToContact).validate().responseJSON() { response in
+            switch response.result {
+            case .Success:
+                if let value = response.result.value {
+                    let json = JSON(value)
+                    
+                    let activityPlaces = json["response"]["groups"][0]["items"]
+                    
+                    var activitiesPlacesList = [Pin]()
+                    
+                    for index in 0 ..< activityPlaces.count {
+                        let name = activityPlaces[index]["venue"]["name"].stringValue
+                        let address = activityPlaces[index]["venue"]["location"]["formattedAddress"][0].stringValue
+                        let lat = activityPlaces[index]["venue"]["location"]["lat"].doubleValue
+                        let lng = activityPlaces[index]["venue"]["location"]["lng"].doubleValue
+                        var point = MGLPointAnnotation()
+                        point.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+                        
+                        var pin = Pin(name: name, address: address, coordinates: point.coordinate)
+                        
+                        activitiesPlacesList.append(pin)
+                    }
+                    complete(activitiesPlacesList: activitiesPlacesList, coordinates: coordinates)
+                }
+                
+            case .Failure(let error):
+                print(error)
+            }
+        }
+    }
+    }
+    
+    func convertAddressToLatLon(address: String?, complete: (coordinates: CLLocationCoordinate2D) -> Void) {
 
-    func randomRestaurantsRequest (complete:
+                let address = address
+                let geocoder = CLGeocoder()
+    
+                geocoder.geocodeAddressString(address!, completionHandler: {(placemarks, error) -> Void in
+                    if((error) != nil){
+                        print("Error", error)
+                    }
+                    if let placemark = placemarks?.first {
+                        let coordinates: CLLocationCoordinate2D = placemark.location!.coordinate
+                        complete(coordinates: coordinates)
+                    }
+                })
+            }
+    
+    
+    func requestBobaPlaces(searchBarText: String, complete: (bobaPlacesList: [Pin], coordinates: CLLocationCoordinate2D) -> Void) {
+        
+        convertAddressToLatLon(searchBarText) { (coordinates) in
+            
+            
+            let lat = coordinates.latitude
+            let lng = coordinates.longitude
+            
+        let apiToContact = "\(self.base_url)explore?client_id=ABW3YVX4M52IS4PN4IORDRFCLQNJIEWPOVLX4GPY2JESYNV1&client_secret=OKMOA1GKFNDRPMQTAVRSRPBWFWHY3HDWH3GM2NK0SENT2VSQ&v=20130815&ll=\(lat),\(lng)&query=boba&openNow=1"
+        
+        Alamofire.request(.GET, apiToContact).validate().responseJSON() { response in
+            switch response.result {
+            case .Success:
+                if let value = response.result.value {
+                    let json = JSON(value)
+                    
+                    let bobaPlaces = json["response"]["groups"][0]["items"]
+                    
+                    var bobaPlacesList = [Pin]()
+                    
+                    for index in 0 ..< bobaPlaces.count {
+                        let name = bobaPlaces[index]["venue"]["name"].stringValue
+                        let address = bobaPlaces[index]["venue"]["location"]["formattedAddress"][0].stringValue
+                        let lat = bobaPlaces[index]["venue"]["location"]["lat"].doubleValue
+                        let lng = bobaPlaces[index]["venue"]["location"]["lng"].doubleValue
+                        var point = MGLPointAnnotation()
+                        point.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+                        var pin = Pin(name: name, address: address, coordinates: point.coordinate)
+                        
+                        bobaPlacesList.append(pin)
+                    }
+                    complete(bobaPlacesList: bobaPlacesList, coordinates: coordinates)
+                    
+
+
+                }
+                
+            case .Failure(let error):
+                print(error)
+            }
+        }
+        }
+        
+    }
+    
+    
+    func allNearbyRestaurantsRequest (searchBarText: String, complete: (listRestaurants: [Pin], coordinates: CLLocationCoordinate2D) -> Void) {
+        
+        convertAddressToLatLon(searchBarText) { (coordinates) in
+            
+            
+            let lat = coordinates.latitude
+            let lng = coordinates.longitude
+            
+        let apiToContact = "\(self.base_url)explore?client_id=ABW3YVX4M52IS4PN4IORDRFCLQNJIEWPOVLX4GPY2JESYNV1&client_secret=OKMOA1GKFNDRPMQTAVRSRPBWFWHY3HDWH3GM2NK0SENT2VSQ&v=20130815&ll=\(lat),\(lng)&query=restaurants&openNow=1"
+        
+        
+        Alamofire.request(.GET, apiToContact).validate().responseJSON() { response in
+            switch response.result {
+            case .Success:
+                if let value = response.result.value {
+                    let json = JSON(value)
+                    
+                    let restaurants = json["response"]["groups"][0]["items"]
+                    //let random = Int(arc4random_uniform(UInt32(restaurants.count)))
+                    //let randomVenue = restaurants[random]["venue"]
+                    
+                    var listRestaurants = [Pin]()
+                    
+                    for index in 0 ..< restaurants.count {
+                        let name = restaurants[index]["venue"]["name"].stringValue
+                        let address = restaurants[index]["venue"]["location"]["formattedAddress"][0].stringValue
+                        let lat = restaurants[index]["venue"]["location"]["lat"].doubleValue
+                        let lng = restaurants[index]["venue"]["location"]["lng"].doubleValue
+                        var point = MGLPointAnnotation()
+                        point.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+                        var pin = Pin(name: name, address: address, coordinates: point.coordinate)
+                        
+                        
+                        listRestaurants.append(pin)
+                    }
+                    complete(listRestaurants: listRestaurants, coordinates: coordinates)
+                    
+                }
+                
+            case .Failure(let error):
+                print(error)
+            }
+        }
+    }
+}
+
+
+    func randomRestaurantsRequest (indexSelected:Int, complete:
         (restaurant: Restaurant) -> Void) {
+        
+        convertAddressToLatLon(searchBarText! as! String) { (coordinates) in
+            
+            
+            let lat = coordinates.latitude
+            let lng = coordinates.longitude
+        
+        
+        var query: String = ""
+        
+        if indexSelected == 0 {
+            query = "restaurants"
+        }
+        else if indexSelected == 1 {
+            query = "boba"
+        }
+        else if indexSelected == 2 {
+            query = "outdoors"
+        }
+        
+        
 
-        let apiToContact = "\(base_url)explore?client_id=ABW3YVX4M52IS4PN4IORDRFCLQNJIEWPOVLX4GPY2JESYNV1&client_secret=OKMOA1GKFNDRPMQTAVRSRPBWFWHY3HDWH3GM2NK0SENT2VSQ&v=20130815&ll=37.773580,-122.417805&query=restaurants&openNow=1"
+        let apiToContact = "\(self.base_url)explore?client_id=ABW3YVX4M52IS4PN4IORDRFCLQNJIEWPOVLX4GPY2JESYNV1&client_secret=OKMOA1GKFNDRPMQTAVRSRPBWFWHY3HDWH3GM2NK0SENT2VSQ&v=20130815&ll=\(lat),\(lng)&query=\(query)&openNow=1"
         
         Alamofire.request(.GET, apiToContact).validate().responseJSON() { response in
             switch response.result {
@@ -60,6 +242,7 @@ class ServiceManager {
                 print(error)
             }
         }
+    }
     }
     
     func imageRequest (venue_id: String, complete: (imageURL: String) -> Void) {

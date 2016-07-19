@@ -11,21 +11,28 @@ import Mapbox
 import MapboxGeocoder
 import MapboxDirections
 import Contacts
+import CoreLocation
+
 
 class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate {
     
-    @IBOutlet weak var segmentedControl: UISegmentedControl!
-    @IBOutlet weak var searchBar: UISearchBar!
+    //@IBOutlet weak var segmentedControl: UISegmentedControl!
+   // @IBOutlet weak var searchBar: UISearchBar!
     let geocoder = Geocoder.sharedGeocoder
     let directions = Directions.sharedDirections
     
-    var searchBarText1 = SearchText()
+    var currentLocation: String = ""
+    
+
 
     @IBOutlet weak var goButton: UIButton!
     @IBOutlet weak var mapView: MGLMapView!
     
     let locationManager = CLLocationManager()
-
+    let serviceManager = ServiceManager()
+    var searchBarText1 = SearchText()
+    var searchBarText: String = ""
+    var index: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,47 +41,71 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDel
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
         self.mapView.showsUserLocation = true
+        
         UIChanges()
+        
+
+
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        searchBar.text = searchBarText1.searchBarText
+        //searchBar.text = searchBarText1.searchBarText
+        
+
         self.locationManager.startUpdatingLocation()
-    }
-    
-    func dropPin() {
-        //        let point = MGLPointAnnotation()
-        //        point.coordinate = CLLocationCoordinate2D(latitude: 45.52258, longitude: -122.6732)
-        //        point.title = "Voodoo Doughnut"
-        //        point.subtitle = "22 SW 3rd Avenue Portland Oregon, U.S.A."
-        //        self.mapView.addAnnotation(point)
+        
+        var searchBarText = NSUserDefaults.standardUserDefaults().objectForKey("searchBarText")
+
+        
+            serviceManager.allNearbyRestaurantsRequest(String(searchBarText)) { (listRestaurants, coordinates) in
+                let center = CLLocationCoordinate2D(latitude: coordinates.latitude, longitude: coordinates.longitude)
+                self.mapView.setCenterCoordinate(center, zoomLevel: 12, animated: true)
+            
+                let currentPoint = MGLPointAnnotation()
+                currentPoint.coordinate = coordinates
+                self.mapView.addAnnotation(currentPoint)
+            
+                for pin in listRestaurants {
+                //print(each)
+                self.dropPin(pin)
+                }
+            }
+            self.mapView.reloadInputViews()
+        }
+
+
+    func dropPin(pin: Pin) {
+                let point = MGLPointAnnotation()
+                point.coordinate = pin.coordinates
+                point.title = pin.name
+                point.subtitle = pin.address
+                self.mapView.addAnnotation(point)
     }
     
     func UIChanges() {
-        
-        segmentedControl.layer.borderColor = UIColor(red:0.20, green:0.60, blue:0.80, alpha:1.0).CGColor
-        segmentedControl.layer.cornerRadius = 0.0
-        segmentedControl.layer.borderWidth = 1.5
         
         goButton.layer.cornerRadius = goButton.frame.width/2
         goButton.clipsToBounds = true
         goButton.layer.borderColor = UIColor.whiteColor().CGColor
         
-        searchBar.barTintColor = UIColor.whiteColor()
-        searchBar.layer.borderColor = UIColor.whiteColor().CGColor
+        //searchBar.barTintColor = UIColor.whiteColor()
+        //searchBar.layer.borderColor = UIColor.whiteColor().CGColor
     }
     
-        
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "goSegue" {
             self.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
 
         }
+
+        if segue.identifier == "HelpMe" {
+            let viewController = segue.destinationViewController as! RandomPopViewController
+            viewController.indexSelected = index
+        }
     }
     
-    
-
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
@@ -86,14 +117,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDel
         mapView.setCenterCoordinate(center, zoomLevel: 14, animated: true)
         self.locationManager.stopUpdatingLocation()
         
-        
         let options = ReverseGeocodeOptions(coordinate: CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude))
         
         let task = geocoder.geocode(options: options) { (placemarks, attribution, error) in
             let placemark = placemarks![0]
-            self.searchBar.text = placemark.name
+            self.currentLocation = placemark.name
         }
     }
+    
+    
     
     
     func  locationManager(manager: CLLocationManager, didFailWithError error: NSError)
@@ -101,6 +133,50 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDel
         print ("Errors:" + error.localizedDescription)
     }
     
+//    func covertAddressToLatLon(addresses: [String]) {
+//        
+//        for address in addresses {
+//        
+//            let address = address
+//            let geocoder = CLGeocoder()
+//        
+//            geocoder.geocodeAddressString(address, completionHandler: {(placemarks, error) -> Void in
+//                if((error) != nil){
+//                    print("Error", error)
+//                }
+//                if let placemark = placemarks?.first {
+//                    let coordinates:CLLocationCoordinate2D = placemark.location!.coordinate
+//                    self.dropPin(coordinates)
+//                }
+//            })
+//        }
+//    }
+    
+    func mapView(mapView: MGLMapView, imageForAnnotation annotation: MGLAnnotation) -> MGLAnnotationImage? {
+        // Try to reuse the existing ‘pisa’ annotation image, if it exists.
+        var annotationImage = mapView.dequeueReusableAnnotationImageWithIdentifier("point")
+        
+        if annotationImage == nil {
+            // Leaning Tower of Pisa by Stefan Spieler from the Noun Project.
+            var image = UIImage(named: "restaurant-1")!
+            
+            // The anchor point of an annotation is currently always the center. To
+            // shift the anchor point to the bottom of the annotation, the image
+            // asset includes transparent bottom padding equal to the original image
+            // height.
+            //
+            // To make this padding non-interactive, we create another image object
+            // with a custom alignment rect that excludes the padding.
+            image = image.imageWithAlignmentRectInsets(UIEdgeInsetsMake(0, 0, image.size.height/2, 0))
+            
+            // Initialize the ‘pisa’ annotation image with the UIImage we just loaded.
+            annotationImage = MGLAnnotationImage(image: image, reuseIdentifier: "point")
+            
+            
+        }
+        
+        return annotationImage
+    }
 
     
     func polyRoute() {
@@ -179,16 +255,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDel
         return true
     }
     
-    @IBAction func unwindToHome(segue: UIStoryboardSegue) {
-        //let sourceController = segue.sourceViewController as! EnterAddressesViewController
-    }
+
 }
 
-extension ViewController: UISearchBarDelegate {
-    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
-        let searchController = storyboard!.instantiateViewControllerWithIdentifier("Search") as! SearchAutoCompleteTableViewController
-        
-        self.presentViewController(searchController, animated: true, completion: nil)
-    }
-}
+//extension ViewController: UISearchBarDelegate {
+//    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+//        let searchController = storyboard!.instantiateViewControllerWithIdentifier("Search") as! SearchAutoCompleteTableViewController
+//        
+//        self.presentViewController(searchController, animated: true, completion: nil)
+//    }
+//}
 

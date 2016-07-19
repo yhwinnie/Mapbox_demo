@@ -11,6 +11,9 @@ import Alamofire
 import SwiftyJSON
 
 class FilterPopUpViewController: UIViewController {
+    
+    var indexSelected: Int = 0
+
 
     @IBOutlet weak var smallView: UIView!
     override func viewDidLoad() {
@@ -20,8 +23,6 @@ class FilterPopUpViewController: UIViewController {
         smallView.layer.borderColor = UIColor.grayColor().CGColor
         smallView.layer.borderWidth = 0.5
         smallView.clipsToBounds = true
-        
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,7 +39,10 @@ class FilterPopUpViewController: UIViewController {
     
 
     @IBAction func searchButton(sender: AnyObject) {
+        let storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        var viewController = storyboard.instantiateViewControllerWithIdentifier("Random") as! RandomPopViewController
+        viewController.indexSelected = indexSelected
+        print(viewController.indexSelected)
         
-
     }
 }
