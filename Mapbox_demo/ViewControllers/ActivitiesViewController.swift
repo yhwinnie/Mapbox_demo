@@ -56,6 +56,8 @@ class ActivitiesViewController: UIViewController, CLLocationManagerDelegate, MGL
             let center = CLLocationCoordinate2D(latitude: coordinates.latitude, longitude: coordinates.longitude)
             self.mapView.setCenterCoordinate(center, zoomLevel: 12, animated: true)
             
+            list = activitiesPlacesList
+            
             for pin in activitiesPlacesList {
                 self.dropPin(pin)
             }

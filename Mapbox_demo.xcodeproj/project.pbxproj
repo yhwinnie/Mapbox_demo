@@ -39,6 +39,7 @@
 		4C6A52621D3995BB00CF0880 /* Places.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6A52611D3995BB00CF0880 /* Places.swift */; };
 		4C6A52641D39960100CF0880 /* UserSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6A52631D39960100CF0880 /* UserSelection.swift */; };
 		4C7746181D4016420083E364 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C7746171D4016420083E364 /* GoogleService-Info.plist */; };
+		4C77461A1D4038790083E364 /* ListPlacesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7746191D4038790083E364 /* ListPlacesTableViewController.swift */; };
 		4CA4D1D51D3D92A70040EA92 /* 1468899655_miscellaneous-31.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CA4D1D21D3D92A70040EA92 /* 1468899655_miscellaneous-31.png */; };
 		4CA4D1D61D3D92A70040EA92 /* 1468899655_miscellaneous-31@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CA4D1D31D3D92A70040EA92 /* 1468899655_miscellaneous-31@2x.png */; };
 		4CA4D1D71D3D92A70040EA92 /* 1468899655_miscellaneous-31@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CA4D1D41D3D92A70040EA92 /* 1468899655_miscellaneous-31@3x.png */; };
@@ -112,6 +113,7 @@
 		4C6A52611D3995BB00CF0880 /* Places.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Places.swift; sourceTree = "<group>"; };
 		4C6A52631D39960100CF0880 /* UserSelection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSelection.swift; sourceTree = "<group>"; };
 		4C7746171D4016420083E364 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "Images/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4C7746191D4038790083E364 /* ListPlacesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListPlacesTableViewController.swift; sourceTree = "<group>"; };
 		4CA4D1D21D3D92A70040EA92 /* 1468899655_miscellaneous-31.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1468899655_miscellaneous-31.png"; sourceTree = "<group>"; };
 		4CA4D1D31D3D92A70040EA92 /* 1468899655_miscellaneous-31@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1468899655_miscellaneous-31@2x.png"; sourceTree = "<group>"; };
 		4CA4D1D41D3D92A70040EA92 /* 1468899655_miscellaneous-31@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1468899655_miscellaneous-31@3x.png"; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 				4CD701B81D3D5CFB00552EED /* BobaMapViewController.swift */,
 				4CD701BA1D3D616400552EED /* ActivitiesViewController.swift */,
 				4CA4D1DE1D3D94DF0040EA92 /* ListTableViewController.swift */,
+				4C7746191D4038790083E364 /* ListPlacesTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -477,6 +480,7 @@
 				4CB2E5221D3814CF00BCE278 /* SearchText.swift in Sources */,
 				4CB2E5281D383B6600BCE278 /* RandomPopViewController.swift in Sources */,
 				4CD701AF1D3D3B3100552EED /* TabScrollViewController.swift in Sources */,
+				4C77461A1D4038790083E364 /* ListPlacesTableViewController.swift in Sources */,
 				4CD701D11D3D7B9400552EED /* Index.swift in Sources */,
 				4CD701BB1D3D616400552EED /* ActivitiesViewController.swift in Sources */,
 				4C6A52621D3995BB00CF0880 /* Places.swift in Sources */,

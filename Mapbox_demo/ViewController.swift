@@ -73,7 +73,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDel
                 let currentPoint = MGLPointAnnotation()
                 currentPoint.coordinate = coordinates
                 self.mapView.addAnnotation(currentPoint)
-            
+                list = listRestaurants
                 for pin in listRestaurants {
                 //print(each)
                 self.dropPin(pin)
@@ -262,8 +262,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDel
         // Always try to show a callout when an annotation is tapped.
         return true
     }
-    
-
 }
 
 //extension ViewController: UISearchBarDelegate {

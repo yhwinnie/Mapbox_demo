@@ -58,6 +58,8 @@ class SearchAutoCompleteTableViewController: UITableViewController {
         if segue.identifier == "backToMap" {
             let index = tableView.indexPathForSelectedRow
             let viewController = segue.destinationViewController as! TabScrollViewController
+            
+            searchBarText14 = self.resultsArray[index!.row]
 
             viewController.searchBarText1.searchBarText = self.resultsArray[index!.row]
 //            print(self.resultsArray[index!.row])

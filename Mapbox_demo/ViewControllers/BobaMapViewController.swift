@@ -53,11 +53,11 @@ class BobaMapViewController: UIViewController, CLLocationManagerDelegate, MGLMap
     }
     
     func callServiceManager(searchBarText: String) {
-        serviceManager.requestActivitiesPlaces(String(searchBarText)) { (activitiesPlacesList, coordinates) in
+        serviceManager.requestBobaPlaces(String(searchBarText)) { (bobaPlacesList, coordinates) in
             let center = CLLocationCoordinate2D(latitude: coordinates.latitude, longitude: coordinates.longitude)
             self.mapView.setCenterCoordinate(center, zoomLevel: 12, animated: true)
-            
-            for pin in activitiesPlacesList {
+            list = bobaPlacesList
+            for pin in bobaPlacesList {
                 self.dropPin(pin)
             }
         }

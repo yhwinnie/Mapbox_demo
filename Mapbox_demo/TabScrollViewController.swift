@@ -17,6 +17,8 @@ import CoreLocation
 
 class TabScrollViewController: UIViewController, ACTabScrollViewDelegate, ACTabScrollViewDataSource {
     
+    
+    
     var contentViews = [AnyObject]()
     var names = ["Food", "Coffee/Boba", "Activites"]
     
@@ -27,18 +29,21 @@ class TabScrollViewController: UIViewController, ACTabScrollViewDelegate, ACTabS
 
     @IBOutlet weak var tabScrollView: ACTabScrollView!
     
-    lazy   var searchBar:UISearchBar = UISearchBar(frame: CGRectMake(0, 0, 345, 20))
+    lazy   var searchBar:UISearchBar = UISearchBar(frame: CGRectMake(0, 0, 300, 20))
 
     var viewControllers = [UIViewController]()
     var indexSelected: Int = 0
 
     override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        searchBar.text = searchBarText1.searchBarText
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation()
         
-        super.viewDidLoad()
+        
         searchBar.delegate = self
         searchBar.placeholder = "Enter address"
         
@@ -73,15 +78,13 @@ class TabScrollViewController: UIViewController, ACTabScrollViewDelegate, ACTabS
             navigationBar.shadowImage = UIImage()
         }
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
-        
-        
 
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        searchBar.text = searchBarText1.searchBarText
+        searchBar.text = searchBarText14
         if searchBar.text != nil {
             NSUserDefaults.standardUserDefaults().setObject(searchBarText1.searchBarText, forKey: "searchBarText")
         }
@@ -89,9 +92,11 @@ class TabScrollViewController: UIViewController, ACTabScrollViewDelegate, ACTabS
     }
     
     func tabScrollView(tabScrollView: ACTabScrollView, didChangePageTo index: Int) {
+        tabSelected = index
     }
     
     func tabScrollView(tabScrollView: ACTabScrollView, didScrollPageTo index: Int) {
+        tabSelected = index
     }
     
     func numberOfPagesInTabScrollView(tabScrollView: ACTabScrollView) -> Int {

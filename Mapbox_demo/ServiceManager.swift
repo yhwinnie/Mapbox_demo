@@ -34,7 +34,7 @@ class ServiceManager {
         let lng = coordinates.longitude
     
         
-        let apiToContact = "\(self.base_url)explore?client_id=\(CLIENT_ID)&client_secret=\(CLIENT_SECRET)&v=20130815&ll=\(lat),\(lng)&query=outdoors&openNow=1"
+        let apiToContact = "\(self.base_url)explore?client_id=\(CLIENT_ID)&client_secret=\(CLIENT_SECRET)&v=20130815&ll=\(lat),\(lng)&query=POI&openNow=1"
         
         Alamofire.request(.GET, apiToContact).validate().responseJSON() { response in
             switch response.result {
@@ -202,7 +202,7 @@ class ServiceManager {
             query = "boba"
         }
         else if indexSelected == 2 {
-            query = "outdoors"
+            query = "POI"
         }
         
         
