@@ -20,12 +20,9 @@ class ActivitiesViewController: UIViewController, CLLocationManagerDelegate, MGL
     let locationManager = CLLocationManager()
     let geocoder = Geocoder.sharedGeocoder
     
+    //var searchBarText = NSUserDefaults.standardUserDefaults().objectForKey("searchBarText")
     
     
-    
-    var searchBarText = NSUserDefaults.standardUserDefaults().objectForKey("searchBarText")
-
-
     var index: Int = 2
 
     @IBOutlet weak var mapView: MGLMapView!
@@ -41,24 +38,30 @@ class ActivitiesViewController: UIViewController, CLLocationManagerDelegate, MGL
         self.locationManager.startUpdatingLocation()
         self.mapView.showsUserLocation = true
         
-        print (searchBarText)
-        
-
-
+        //print (searchBarText)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        var searchBarText = NSUserDefaults.standardUserDefaults().objectForKey("searchBarText")
+        //self.locationManager.startUpdatingLocation()
+        //var searchBarText = NSUserDefaults.standardUserDefaults().objectForKey("searchBarText")
+        
+        print(searchBarText14)
+        callServiceManager(searchBarText14)
+
+    }
+    
+    func callServiceManager(searchBarText: String) {
         serviceManager.requestActivitiesPlaces(String(searchBarText)) { (activitiesPlacesList, coordinates) in
             let center = CLLocationCoordinate2D(latitude: coordinates.latitude, longitude: coordinates.longitude)
             self.mapView.setCenterCoordinate(center, zoomLevel: 12, animated: true)
-
+            
             for pin in activitiesPlacesList {
                 self.dropPin(pin)
             }
         }
         self.mapView.reloadInputViews()
+        
     }
 
     
@@ -75,9 +78,10 @@ class ActivitiesViewController: UIViewController, CLLocationManagerDelegate, MGL
         let options = ReverseGeocodeOptions(coordinate: CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude))
         
         let task = geocoder.geocode(options: options) { (placemarks, attribution, error) in
-            let placemark = placemarks![0]
-            //self.searchBar.text = placemark.name
+        let placemark = placemarks![0]
+        self.callServiceManager(placemark.name)
         }
+   
     }
     
     
@@ -94,8 +98,8 @@ class ActivitiesViewController: UIViewController, CLLocationManagerDelegate, MGL
         }
     }
     
-    
     func dropPin(pin: Pin) {
+        
         let point = MGLPointAnnotation()
         point.coordinate = pin.coordinates
         point.title = pin.name
@@ -108,7 +112,4 @@ class ActivitiesViewController: UIViewController, CLLocationManagerDelegate, MGL
         // Always try to show a callout when an annotation is tapped.
         return true
     }
-    
-
-
 }

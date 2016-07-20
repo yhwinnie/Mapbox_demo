@@ -12,19 +12,26 @@ import MapboxGeocoder
 import MapboxDirections
 import Contacts
 import CoreLocation
+import Firebase
+import FirebaseDatabase
+import FirebaseAuth
 
 
 class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate {
     
-    //@IBOutlet weak var segmentedControl: UISegmentedControl!
-   // @IBOutlet weak var searchBar: UISearchBar!
+
     let geocoder = Geocoder.sharedGeocoder
     let directions = Directions.sharedDirections
     
+   // let rootRef = FIRDatabase.database().referenceFromURL("https://mappie-1369.firebaseio.com/user")
+   // var messageRef: FIRDatabaseReference!
+
+    
+    // let ref = Firebase(url: "https://mappie-1369.firebaseio.com/user")
+    
+    
     var currentLocation: String = ""
     
-
-
     @IBOutlet weak var goButton: UIButton!
     @IBOutlet weak var mapView: MGLMapView!
     
@@ -41,24 +48,25 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDel
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
         self.mapView.showsUserLocation = true
+        var rootRef = FIRDatabase.database().reference()
+        var ref = "\(rootRef)/user"
+        
+        print(rootRef)
+        print(ref)
         
         UIChanges()
-        
-
-
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         //searchBar.text = searchBarText1.searchBarText
         
-
         self.locationManager.startUpdatingLocation()
         
-        var searchBarText = NSUserDefaults.standardUserDefaults().objectForKey("searchBarText")
-
+        //let searchBarText = NSUserDefaults.standardUserDefaults().objectForKey("searchBarText")
         
-            serviceManager.allNearbyRestaurantsRequest(String(searchBarText)) { (listRestaurants, coordinates) in
+            print(searchBarText14)
+            serviceManager.allNearbyRestaurantsRequest(String(searchBarText14)) { (listRestaurants, coordinates) in
                 let center = CLLocationCoordinate2D(latitude: coordinates.latitude, longitude: coordinates.longitude)
                 self.mapView.setCenterCoordinate(center, zoomLevel: 12, animated: true)
             
@@ -180,19 +188,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDel
 
     
     func polyRoute() {
-        var pointw = MGLPointAnnotation()
+        let pointw = MGLPointAnnotation()
         pointw.coordinate = CLLocationCoordinate2D(latitude: 38.9131752, longitude: -77.0324047)
         //point1.title = "Voodoo Doughnut"
         //point1.subtitle = "22 SW 3rd Avenue Portland Oregon, U.S.A."
         self.mapView.addAnnotation(pointw)
         
-        var point2 = MGLPointAnnotation()
+        let point2 = MGLPointAnnotation()
         point2.coordinate = CLLocationCoordinate2D(latitude: 38.8977, longitude: -77.0365)
         //point2.title = "Voodoo Doughnut"
         //point2.subtitle = "22 SW 3rd Avenue Portland Oregon, U.S.A."
         self.mapView.addAnnotation(point2)
         
-        var point3 = MGLPointAnnotation()
+        let point3 = MGLPointAnnotation()
         point3.coordinate = CLLocationCoordinate2D(latitude: 34.742133, longitude: -77.0367)
         self.mapView.addAnnotation(point3)
         let waypoints = [

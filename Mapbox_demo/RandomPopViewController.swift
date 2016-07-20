@@ -28,8 +28,6 @@ class RandomPopViewController: UIViewController {
     
     var indexSelected: Int = 0
     let serviceManager = ServiceManager()
-
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()

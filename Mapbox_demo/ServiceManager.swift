@@ -20,12 +20,12 @@ import MapboxDirections
 class ServiceManager {
     
     
-    var searchBarText = NSUserDefaults.standardUserDefaults().objectForKey("searchBarText")
 
     let base_url = "https://api.foursquare.com/v2/venues/"
     
     func requestActivitiesPlaces(searchBarText: String?, complete: (activitiesPlacesList: [Pin], coordinates: CLLocationCoordinate2D) -> Void) {
-        print(searchBarText)
+        
+        print("Activity: \(searchBarText)")
         
         convertAddressToLatLon(searchBarText!) { (coordinates) in
             
@@ -34,7 +34,7 @@ class ServiceManager {
         let lng = coordinates.longitude
     
         
-        let apiToContact = "\(self.base_url)explore?client_id=ABW3YVX4M52IS4PN4IORDRFCLQNJIEWPOVLX4GPY2JESYNV1&client_secret=OKMOA1GKFNDRPMQTAVRSRPBWFWHY3HDWH3GM2NK0SENT2VSQ&v=20130815&ll=\(lat),\(lng)&query=outdoors&openNow=1"
+        let apiToContact = "\(self.base_url)explore?client_id=\(CLIENT_ID)&client_secret=\(CLIENT_SECRET)&v=20130815&ll=\(lat),\(lng)&query=outdoors&openNow=1"
         
         Alamofire.request(.GET, apiToContact).validate().responseJSON() { response in
             switch response.result {
@@ -51,10 +51,10 @@ class ServiceManager {
                         let address = activityPlaces[index]["venue"]["location"]["formattedAddress"][0].stringValue
                         let lat = activityPlaces[index]["venue"]["location"]["lat"].doubleValue
                         let lng = activityPlaces[index]["venue"]["location"]["lng"].doubleValue
-                        var point = MGLPointAnnotation()
+                        let point = MGLPointAnnotation()
                         point.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
                         
-                        var pin = Pin(name: name, address: address, coordinates: point.coordinate)
+                        let pin = Pin(name: name, address: address, coordinates: point.coordinate)
                         
                         activitiesPlacesList.append(pin)
                     }
@@ -87,13 +87,16 @@ class ServiceManager {
     
     func requestBobaPlaces(searchBarText: String, complete: (bobaPlacesList: [Pin], coordinates: CLLocationCoordinate2D) -> Void) {
         
+        print("Boba: \(searchBarText)")
         convertAddressToLatLon(searchBarText) { (coordinates) in
             
             
             let lat = coordinates.latitude
             let lng = coordinates.longitude
+        
             
-        let apiToContact = "\(self.base_url)explore?client_id=ABW3YVX4M52IS4PN4IORDRFCLQNJIEWPOVLX4GPY2JESYNV1&client_secret=OKMOA1GKFNDRPMQTAVRSRPBWFWHY3HDWH3GM2NK0SENT2VSQ&v=20130815&ll=\(lat),\(lng)&query=boba&openNow=1"
+            
+        let apiToContact = "\(self.base_url)explore?client_id=\(CLIENT_ID)&client_secret=\(CLIENT_SECRET)&v=20130815&ll=\(lat),\(lng)&query=boba&openNow=1"
         
         Alamofire.request(.GET, apiToContact).validate().responseJSON() { response in
             switch response.result {
@@ -110,9 +113,9 @@ class ServiceManager {
                         let address = bobaPlaces[index]["venue"]["location"]["formattedAddress"][0].stringValue
                         let lat = bobaPlaces[index]["venue"]["location"]["lat"].doubleValue
                         let lng = bobaPlaces[index]["venue"]["location"]["lng"].doubleValue
-                        var point = MGLPointAnnotation()
+                        let point = MGLPointAnnotation()
                         point.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
-                        var pin = Pin(name: name, address: address, coordinates: point.coordinate)
+                        let pin = Pin(name: name, address: address, coordinates: point.coordinate)
                         
                         bobaPlacesList.append(pin)
                     }
@@ -133,13 +136,15 @@ class ServiceManager {
     
     func allNearbyRestaurantsRequest (searchBarText: String, complete: (listRestaurants: [Pin], coordinates: CLLocationCoordinate2D) -> Void) {
         
+        print("Restaurant: \(searchBarText)")
+        
         convertAddressToLatLon(searchBarText) { (coordinates) in
             
             
             let lat = coordinates.latitude
             let lng = coordinates.longitude
             
-        let apiToContact = "\(self.base_url)explore?client_id=ABW3YVX4M52IS4PN4IORDRFCLQNJIEWPOVLX4GPY2JESYNV1&client_secret=OKMOA1GKFNDRPMQTAVRSRPBWFWHY3HDWH3GM2NK0SENT2VSQ&v=20130815&ll=\(lat),\(lng)&query=restaurants&openNow=1"
+        let apiToContact = "\(self.base_url)explore?client_id=\(CLIENT_ID)&client_secret=\(CLIENT_SECRET)&v=20130815&ll=\(lat),\(lng)&query=restaurants&openNow=1"
         
         
         Alamofire.request(.GET, apiToContact).validate().responseJSON() { response in
@@ -159,9 +164,9 @@ class ServiceManager {
                         let address = restaurants[index]["venue"]["location"]["formattedAddress"][0].stringValue
                         let lat = restaurants[index]["venue"]["location"]["lat"].doubleValue
                         let lng = restaurants[index]["venue"]["location"]["lng"].doubleValue
-                        var point = MGLPointAnnotation()
+                        let point = MGLPointAnnotation()
                         point.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
-                        var pin = Pin(name: name, address: address, coordinates: point.coordinate)
+                        let pin = Pin(name: name, address: address, coordinates: point.coordinate)
                         
                         
                         listRestaurants.append(pin)
@@ -181,7 +186,7 @@ class ServiceManager {
     func randomRestaurantsRequest (indexSelected:Int, complete:
         (restaurant: Restaurant) -> Void) {
         
-        convertAddressToLatLon(searchBarText! as! String) { (coordinates) in
+        convertAddressToLatLon(searchBarText14 as? String) { (coordinates) in
             
             
             let lat = coordinates.latitude
@@ -202,7 +207,7 @@ class ServiceManager {
         
         
 
-        let apiToContact = "\(self.base_url)explore?client_id=ABW3YVX4M52IS4PN4IORDRFCLQNJIEWPOVLX4GPY2JESYNV1&client_secret=OKMOA1GKFNDRPMQTAVRSRPBWFWHY3HDWH3GM2NK0SENT2VSQ&v=20130815&ll=\(lat),\(lng)&query=\(query)&openNow=1"
+        let apiToContact = "\(self.base_url)explore?client_id=\(CLIENT_ID)&client_secret=\(CLIENT_SECRET)&v=20130815&ll=\(lat),\(lng)&query=\(query)&openNow=1"
         
         Alamofire.request(.GET, apiToContact).validate().responseJSON() { response in
             switch response.result {
@@ -247,7 +252,7 @@ class ServiceManager {
     
     func imageRequest (venue_id: String, complete: (imageURL: String) -> Void) {
         
-            let api = "https://api.foursquare.com/v2/venues/\(venue_id)?client_id=ABW3YVX4M52IS4PN4IORDRFCLQNJIEWPOVLX4GPY2JESYNV1&client_secret=OKMOA1GKFNDRPMQTAVRSRPBWFWHY3HDWH3GM2NK0SENT2VSQ&v=20130815"
+            let api = "https://api.foursquare.com/v2/venues/\(venue_id)?client_id=\(CLIENT_ID)&client_secret=\(CLIENT_SECRET)&v=20130815"
             Alamofire.request(.GET, api).validate().responseJSON() { response in
                 switch response.result {
                 case .Success:

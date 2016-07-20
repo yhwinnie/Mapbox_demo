@@ -14,6 +14,12 @@ target 'Mapbox_demo' do
   	pod 'AlamofireImage'
   	pod 'AlamofireNetworkActivityIndicator'
 	pod 'ACTabScrollView', :git => 'https://github.com/azurechen/ACTabScrollView.git'
+	pod 'Firebase', '>=2.4.2'
+	pod 'Firebase/Database'
+	pod 'Firebase/Auth'
+   
+
+
 
 
 

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>64581694500-4k1bm6p8qhv7uljd4mdqvro146hb19lb.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.64581694500-4k1bm6p8qhv7uljd4mdqvro146hb19lb</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCSLI4MsWeR_B9X9z5f8mtVO88I03rKXJs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>64581694500</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.wiwen.Mappie</string>
+	<key>PROJECT_ID</key>
+	<string>mappie-1369</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mappie-1369.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:64581694500:ios:44637fe1176d4d10</string>
+	<key>DATABASE_URL</key>
+	<string>https://mappie-1369.firebaseio.com</string>
+</dict>
+</plist>

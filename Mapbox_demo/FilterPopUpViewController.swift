@@ -40,7 +40,7 @@ class FilterPopUpViewController: UIViewController {
 
     @IBAction func searchButton(sender: AnyObject) {
         let storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-        var viewController = storyboard.instantiateViewControllerWithIdentifier("Random") as! RandomPopViewController
+        let viewController = storyboard.instantiateViewControllerWithIdentifier("Random") as! RandomPopViewController
         viewController.indexSelected = indexSelected
         print(viewController.indexSelected)
         

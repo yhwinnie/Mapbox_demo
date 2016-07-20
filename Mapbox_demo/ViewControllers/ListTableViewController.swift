@@ -23,7 +23,7 @@ class ListTableViewController: UITableViewController {
         if let navigationBar = self.navigationController?.navigationBar {
             navigationBar.translucent = false
             navigationBar.tintColor = UIColor.whiteColor()
-            navigationBar.barTintColor = UIColor(red: 38.0 / 255, green: 191.0 / 255, blue: 140.0 / 255, alpha: 1)
+            navigationBar.barTintColor = UIColor(red:0.20, green:0.60, blue:0.40, alpha:1.0)
             navigationBar.titleTextAttributes = NSDictionary(object: UIColor.whiteColor(), forKey: NSForegroundColorAttributeName) as? [String : AnyObject]
             navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
             navigationBar.shadowImage = UIImage()

@@ -90,7 +90,7 @@ extension SearchAutoCompleteTableViewController: UISearchBarDelegate {
             let coordinate = placemark.location.coordinate
 
             for placemark in placemarks! {
-                self.resultsArray.append(placemark.qualifiedName)
+                self.resultsArray.insert(placemark.qualifiedName, atIndex: 0)
             }
             self.tableView.reloadData()
             

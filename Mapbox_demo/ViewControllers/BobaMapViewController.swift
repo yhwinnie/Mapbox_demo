@@ -21,16 +21,15 @@ class BobaMapViewController: UIViewController, CLLocationManagerDelegate, MGLMap
     let geocoder = Geocoder.sharedGeocoder
     
     
-    
+    //var searchBarText = NSUserDefaults.standardUserDefaults().objectForKey("searchBarText")
+
     var index: Int = 1
 
     @IBOutlet weak var mapView: MGLMapView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        goButton.layer.cornerRadius = goButton.frame.width/2
-        goButton.clipsToBounds = true
-        goButton.layer.borderColor = UIColor.whiteColor().CGColor
+        UIChanges()
         
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -39,23 +38,32 @@ class BobaMapViewController: UIViewController, CLLocationManagerDelegate, MGLMap
         self.mapView.showsUserLocation = true
     }
     
-        override func viewWillAppear(animated: Bool) {
-            super.viewWillAppear(animated)
-            var searchBarText = NSUserDefaults.standardUserDefaults().objectForKey("searchBarText")
-            serviceManager.requestBobaPlaces(String(searchBarText)) { (bobaPlacesList, coordinates) in
-                
-            
-                let center = CLLocationCoordinate2D(latitude: coordinates.latitude, longitude: coordinates.longitude)
-                self.mapView.setCenterCoordinate(center, zoomLevel: 12, animated: true)
-                
-                for pin in bobaPlacesList {
-                    self.dropPin(pin)
-                }
-            }
-            self.mapView.reloadInputViews()
-        }
-
+    func UIChanges() {
+        goButton.layer.cornerRadius = goButton.frame.width/2
+        goButton.clipsToBounds = true
+        goButton.layer.borderColor = UIColor.whiteColor().CGColor
         
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        print(searchBarText14)
+        callServiceManager(searchBarText14)
+    }
+    
+    func callServiceManager(searchBarText: String) {
+        serviceManager.requestActivitiesPlaces(String(searchBarText)) { (activitiesPlacesList, coordinates) in
+            let center = CLLocationCoordinate2D(latitude: coordinates.latitude, longitude: coordinates.longitude)
+            self.mapView.setCenterCoordinate(center, zoomLevel: 12, animated: true)
+            
+            for pin in activitiesPlacesList {
+                self.dropPin(pin)
+            }
+        }
+        self.mapView.reloadInputViews()
+        
+    }
     
     
     func dropPin(pin:Pin) {
@@ -98,6 +106,7 @@ class BobaMapViewController: UIViewController, CLLocationManagerDelegate, MGLMap
         mapView.userTrackingMode = .Follow
         let center = CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude)
         
+        //NSUserDefaults.standardUserDefaults().setObject(location!, forKey: "currentLocation")
         
         mapView.setCenterCoordinate(center, zoomLevel: 12, animated: true)
         self.locationManager.stopUpdatingLocation()
@@ -106,7 +115,8 @@ class BobaMapViewController: UIViewController, CLLocationManagerDelegate, MGLMap
         
         let task = geocoder.geocode(options: options) { (placemarks, attribution, error) in
             let placemark = placemarks![0]
-            //self.searchBar.text = placemark.name
+            self.callServiceManager(placemark.name)
+            
         }
     }
     
@@ -119,8 +129,7 @@ class BobaMapViewController: UIViewController, CLLocationManagerDelegate, MGLMap
     }
     
     
-    func  locationManager(manager: CLLocationManager, didFailWithError error: NSError)
-    {
+    func  locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         print ("Errors:" + error.localizedDescription)
     }
     
@@ -129,34 +138,5 @@ class BobaMapViewController: UIViewController, CLLocationManagerDelegate, MGLMap
         return true
     }
     
-//    func covertAddressToLatLon(addresses: [String]) {
-//        
-//        for address in addresses {
-//            
-//            let address = address
-//            let geocoder = CLGeocoder()
-//            
-//            geocoder.geocodeAddressString(address, completionHandler: {(placemarks, error) -> Void in
-//                if((error) != nil){
-//                    print("Error", error)
-//                }
-//                if let placemark = placemarks?.first {
-//                    let coordinates:CLLocationCoordinate2D = placemark.location!.coordinate
-//                    self.dropPin(coordinates)
-//                }
-//            })
-//        }
-//    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

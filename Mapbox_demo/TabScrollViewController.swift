@@ -8,15 +8,22 @@
 
 import UIKit
 import ACTabScrollView
+import Mapbox
+import MapboxGeocoder
+import MapboxDirections
+import Contacts
+import CoreLocation
 
 
-class TabScrollViewController: UIViewController, ACTabScrollViewDelegate, ACTabScrollViewDataSource{
+class TabScrollViewController: UIViewController, ACTabScrollViewDelegate, ACTabScrollViewDataSource {
     
     var contentViews = [AnyObject]()
-    var names = ["Food", "Boba", "Activites"]
+    var names = ["Food", "Coffee/Boba", "Activites"]
     
     var searchBarText1 = SearchText()
-    
+    let locationManager = CLLocationManager()
+    let geocoder = Geocoder.sharedGeocoder
+
 
     @IBOutlet weak var tabScrollView: ACTabScrollView!
     
@@ -26,6 +33,11 @@ class TabScrollViewController: UIViewController, ACTabScrollViewDelegate, ACTabS
     var indexSelected: Int = 0
 
     override func viewDidLoad() {
+        self.locationManager.delegate = self
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        self.locationManager.requestWhenInUseAuthorization()
+        self.locationManager.startUpdatingLocation()
+        
         super.viewDidLoad()
         searchBar.delegate = self
         searchBar.placeholder = "Enter address"
@@ -42,7 +54,6 @@ class TabScrollViewController: UIViewController, ACTabScrollViewDelegate, ACTabS
         viewControllers.append(storyboard.instantiateViewControllerWithIdentifier("BobaMap") as! BobaMapViewController)
         viewControllers.append(storyboard.instantiateViewControllerWithIdentifier("ActivitiesMap") as! ActivitiesViewController)
         
-        //searchBar.text = "47 Seashore Drive"
         
         for i in 0 ..< viewControllers.count {
             let vc = viewControllers[i]            /* set somethings for vc */
@@ -56,32 +67,33 @@ class TabScrollViewController: UIViewController, ACTabScrollViewDelegate, ACTabS
         if let navigationBar = self.navigationController?.navigationBar {
             navigationBar.translucent = false
             navigationBar.tintColor = UIColor.whiteColor()
-            navigationBar.barTintColor = UIColor(red: 38.0 / 255, green: 191.0 / 255, blue: 140.0 / 255, alpha: 1)
+            navigationBar.barTintColor = UIColor(red:0.20, green:0.60, blue:0.40, alpha:1.0)
             navigationBar.titleTextAttributes = NSDictionary(object: UIColor.whiteColor(), forKey: NSForegroundColorAttributeName) as? [String : AnyObject]
             navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
             navigationBar.shadowImage = UIImage()
         }
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+        
+        
 
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        //print(searchBarText1.searchBarText)
+        
         searchBar.text = searchBarText1.searchBarText
-        if let searchBarText = searchBar.text {
+        if searchBar.text != nil {
             NSUserDefaults.standardUserDefaults().setObject(searchBarText1.searchBarText, forKey: "searchBarText")
         }
+        searchBarText14 = searchBar.text!
     }
     
     func tabScrollView(tabScrollView: ACTabScrollView, didChangePageTo index: Int) {
-        //print(index)
     }
     
     func tabScrollView(tabScrollView: ACTabScrollView, didScrollPageTo index: Int) {
     }
     
-    // MARK: ACTabScrollViewDataSourceh
     func numberOfPagesInTabScrollView(tabScrollView: ACTabScrollView) -> Int {
         return viewControllers.count
     }
@@ -118,5 +130,30 @@ extension TabScrollViewController: UISearchBarDelegate {
         let searchController = storyboard!.instantiateViewControllerWithIdentifier("Search") as! UINavigationController
         
         self.presentViewController(searchController, animated: true, completion: nil)
+    }
+}
+
+extension TabScrollViewController: CLLocationManagerDelegate {
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
+    {
+        let location = locations.last
+        let center = CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude)
+        
+        self.locationManager.stopUpdatingLocation()
+        
+        let options = ReverseGeocodeOptions(coordinate: CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude))
+        
+        let task = geocoder.geocode(options: options) { (placemarks, attribution, error) in
+            let placemark = placemarks![0]
+            self.searchBar.text = placemark.name
+            // NSUserDefaults.standardUserDefaults().setObject(self.searchBar.text, forKey: "searchBarText")
+            print(self.searchBar.text)
+            searchBarText14 = placemark.name
+            //NSUserDefaults.standardUserDefaults().setObject(self.searchBar.text, forKey: "searchBarText")
+        }
+    }
+
+    func  locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print ("Errors:" + error.localizedDescription)
     }
 }

@@ -38,6 +38,7 @@
 		4C6A52601D39871A00CF0880 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6A525F1D39871A00CF0880 /* Config.swift */; };
 		4C6A52621D3995BB00CF0880 /* Places.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6A52611D3995BB00CF0880 /* Places.swift */; };
 		4C6A52641D39960100CF0880 /* UserSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6A52631D39960100CF0880 /* UserSelection.swift */; };
+		4C7746181D4016420083E364 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C7746171D4016420083E364 /* GoogleService-Info.plist */; };
 		4CA4D1D51D3D92A70040EA92 /* 1468899655_miscellaneous-31.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CA4D1D21D3D92A70040EA92 /* 1468899655_miscellaneous-31.png */; };
 		4CA4D1D61D3D92A70040EA92 /* 1468899655_miscellaneous-31@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CA4D1D31D3D92A70040EA92 /* 1468899655_miscellaneous-31@2x.png */; };
 		4CA4D1D71D3D92A70040EA92 /* 1468899655_miscellaneous-31@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CA4D1D41D3D92A70040EA92 /* 1468899655_miscellaneous-31@3x.png */; };
@@ -110,6 +111,7 @@
 		4C6A525F1D39871A00CF0880 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		4C6A52611D3995BB00CF0880 /* Places.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Places.swift; sourceTree = "<group>"; };
 		4C6A52631D39960100CF0880 /* UserSelection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSelection.swift; sourceTree = "<group>"; };
+		4C7746171D4016420083E364 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "Images/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4CA4D1D21D3D92A70040EA92 /* 1468899655_miscellaneous-31.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1468899655_miscellaneous-31.png"; sourceTree = "<group>"; };
 		4CA4D1D31D3D92A70040EA92 /* 1468899655_miscellaneous-31@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1468899655_miscellaneous-31@2x.png"; sourceTree = "<group>"; };
 		4CA4D1D41D3D92A70040EA92 /* 1468899655_miscellaneous-31@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1468899655_miscellaneous-31@3x.png"; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 				4C5CD6D71D38534400F82B10 /* ViewControllers */,
 				4C5CD6D61D38531100F82B10 /* Images */,
 				4C05E7AC1D35AA6400531BA7 /* Info.plist */,
+				4C7746171D4016420083E364 /* GoogleService-Info.plist */,
 			);
 			path = Mapbox_demo;
 			sourceTree = "<group>";
@@ -402,6 +405,7 @@
 				4C5CD6CF1D3842FA00F82B10 /* 1468550433_Currency_dollar@3x.png in Resources */,
 				4CD701D71D3D8E4100552EED /* 1468898515_location_placeholder_pin_map@3x.png in Resources */,
 				4C2F7E011D3D905500DAEC70 /* 1468899041_location@2x.png in Resources */,
+				4C7746181D4016420083E364 /* GoogleService-Info.plist in Resources */,
 				4C5CD6D51D384DDD00F82B10 /* 1468554370_Untitled-2-31@3x.png in Resources */,
 				4CD701BF1D3D688500552EED /* 1468888871_drink_cup.png in Resources */,
 				4CB2E5241D38349E00BCE278 /* behind_alert_view.png in Resources */,
@@ -599,7 +603,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Mapbox_demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.wiwen.Mapbox-demo";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wiwen.Mappie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -611,7 +615,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Mapbox_demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.wiwen.Mapbox-demo";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wiwen.Mappie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
