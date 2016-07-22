@@ -250,6 +250,74 @@ class ServiceManager {
     }
     }
     
+    func randomNearbyRestaurantRequest(indexSelected: Int, complete: (restaurant: Restaurant) -> Void) {
+        convertAddressToLatLon(searchBarText14 as? String) { (coordinates) in
+            
+            
+            let lat = coordinates.latitude
+            let lng = coordinates.longitude
+            
+            
+            var query: String = ""
+            
+            if indexSelected == 0 {
+                query = "restaurants"
+            }
+            else if indexSelected == 1 {
+                query = "boba"
+            }
+            else if indexSelected == 2 {
+                query = "POI"
+            }
+            
+            
+            let apiToContact = "\(self.base_url)search?client_id=\(CLIENT_ID)&client_secret=\(CLIENT_SECRET)&v=20130815&ll=\(lat),\(lng)&query=\(query)&openNow=1"
+            
+            Alamofire.request(.GET, apiToContact).validate().responseJSON() { response in
+                switch response.result {
+                case .Success:
+                    if let value = response.result.value {
+                        let json = JSON(value)
+                        
+                        let restaurants = json["response"]["venues"]
+                        let random = Int(arc4random_uniform(UInt32(restaurants.count)))
+                        let randomVenue = restaurants[random]
+                        
+                        
+                        let name = randomVenue["name"].stringValue
+                        let venue_id = randomVenue["id"].stringValue
+                        let address = randomVenue["location"]["formattedAddress"][0].stringValue
+                       // let rating = "\(Double(round(randomVenue["rating"].doubleValue*100))/100) out of 10"
+                        //let tips = "Suggestions: \(restaurants[random]["tips"][0]["text"].stringValue)"
+                        
+                        //let tier = randomVenue["price"]["tier"].stringValue
+                        //let priceComparison = randomVenue["price"]["tier"].intValue
+                        
+                        //let price = self.comparePrice(priceComparison, tier: tier)
+                        
+                        //let distance = "\(Double(round(randomVenue["location"]["distance"].doubleValue/1609.344*100))/100) miles away"
+                        
+                        //let hours = randomVenue["hours"]["status"].stringValue
+                        
+//                        var image: String = ""
+//                        
+//                        self.imageRequest(venue_id, complete: { (imageURL) in
+//                            image = imageURL
+//                            let restaurant = Restaurant(name: name, address: address, rating: rating, price: price, hours: hours, distance: distance, tips: tips, imageURL: image)
+//                            complete(restaurant: restaurant)
+//                        })
+                    }
+                    
+                case .Failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
+        
+    
+    
+    
     func imageRequest (venue_id: String, complete: (imageURL: String) -> Void) {
         
             let api = "https://api.foursquare.com/v2/venues/\(venue_id)?client_id=\(CLIENT_ID)&client_secret=\(CLIENT_SECRET)&v=20130815"

@@ -115,7 +115,8 @@ class BobaMapViewController: UIViewController, CLLocationManagerDelegate, MGLMap
         
         let task = geocoder.geocode(options: options) { (placemarks, attribution, error) in
             let placemark = placemarks![0]
-            self.callServiceManager(placemark.name)
+            print(placemark.postalAddress!.street)
+            self.callServiceManager(placemark.postalAddress!.street)
             
         }
     }

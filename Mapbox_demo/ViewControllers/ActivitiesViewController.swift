@@ -51,6 +51,7 @@ class ActivitiesViewController: UIViewController, CLLocationManagerDelegate, MGL
 
     }
     
+    
     func callServiceManager(searchBarText: String) {
         serviceManager.requestActivitiesPlaces(String(searchBarText)) { (activitiesPlacesList, coordinates) in
             let center = CLLocationCoordinate2D(latitude: coordinates.latitude, longitude: coordinates.longitude)
@@ -63,7 +64,6 @@ class ActivitiesViewController: UIViewController, CLLocationManagerDelegate, MGL
             }
         }
         self.mapView.reloadInputViews()
-        
     }
 
     
@@ -81,7 +81,7 @@ class ActivitiesViewController: UIViewController, CLLocationManagerDelegate, MGL
         
         let task = geocoder.geocode(options: options) { (placemarks, attribution, error) in
         let placemark = placemarks![0]
-        self.callServiceManager(placemark.name)
+        self.callServiceManager(placemark.postalAddress!.street)
         }
    
     }

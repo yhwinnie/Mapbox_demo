@@ -11,6 +11,9 @@ import Alamofire
 import SwiftyJSON
 import AlamofireImage
 import AlamofireNetworkActivityIndicator
+import FBSDKLoginKit
+
+
 
 class RandomPopViewController: UIViewController {
 
@@ -51,6 +54,8 @@ class RandomPopViewController: UIViewController {
                 self.loadPoster(restaurant.imageURL)
             })
         }
+        
+        
     }
     
     
@@ -77,8 +82,12 @@ class RandomPopViewController: UIViewController {
     
     @IBAction func goButton(sender: AnyObject) {
         //self.dismissViewControllerAnimated(true, completion: nil)
+        if (FBSDKAccessToken.currentAccessToken() != nil) {
+            let vc : UIViewController = self.storyboard!.instantiateViewControllerWithIdentifier("Friends")
+            presentViewController(vc, animated: true, completion: nil)
+            
+        }
     }
-    
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 

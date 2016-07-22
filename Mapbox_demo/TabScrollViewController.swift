@@ -150,10 +150,10 @@ extension TabScrollViewController: CLLocationManagerDelegate {
         
         let task = geocoder.geocode(options: options) { (placemarks, attribution, error) in
             let placemark = placemarks![0]
-            self.searchBar.text = placemark.name
+            self.searchBar.text = "Current Location"
             // NSUserDefaults.standardUserDefaults().setObject(self.searchBar.text, forKey: "searchBarText")
             print(self.searchBar.text)
-            searchBarText14 = placemark.name
+            searchBarText14 = (placemark.postalAddress?.street)!
             //NSUserDefaults.standardUserDefaults().setObject(self.searchBar.text, forKey: "searchBarText")
         }
     }
