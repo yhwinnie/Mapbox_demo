@@ -81,12 +81,9 @@ class RandomPopViewController: UIViewController {
     }
     
     @IBAction func goButton(sender: AnyObject) {
-        //self.dismissViewControllerAnimated(true, completion: nil)
-        if (FBSDKAccessToken.currentAccessToken() != nil) {
-            let vc : UIViewController = self.storyboard!.instantiateViewControllerWithIdentifier("Friends")
+
+            let vc : UIViewController = self.storyboard!.instantiateViewControllerWithIdentifier("AskRequest")
             presentViewController(vc, animated: true, completion: nil)
-            
-        }
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {

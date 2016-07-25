@@ -48,8 +48,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDel
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
         self.mapView.showsUserLocation = true
-        var rootRef = FIRDatabase.database().reference()
-        var ref = "\(rootRef)/user"
+        let rootRef = FIRDatabase.database().reference()
+        let ref = "\(rootRef)/user"
         
         print(rootRef)
         print(ref)

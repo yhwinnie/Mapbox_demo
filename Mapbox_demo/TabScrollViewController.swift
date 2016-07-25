@@ -19,6 +19,7 @@ class TabScrollViewController: UIViewController, ACTabScrollViewDelegate, ACTabS
     
     
     
+    @IBOutlet weak var menuButton: UIBarButtonItem!
     var contentViews = [AnyObject]()
     var names = ["Food", "Coffee/Boba", "Activites"]
     
@@ -58,6 +59,12 @@ class TabScrollViewController: UIViewController, ACTabScrollViewDelegate, ACTabS
         viewControllers.append(storyboard.instantiateViewControllerWithIdentifier("MapView") as! ViewController)
         viewControllers.append(storyboard.instantiateViewControllerWithIdentifier("BobaMap") as! BobaMapViewController)
         viewControllers.append(storyboard.instantiateViewControllerWithIdentifier("ActivitiesMap") as! ActivitiesViewController)
+        
+        if self.revealViewController() != nil {
+            menuButton.target = self.revealViewController()
+            menuButton.action = "revealToggle:"
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
         
         
         for i in 0 ..< viewControllers.count {
