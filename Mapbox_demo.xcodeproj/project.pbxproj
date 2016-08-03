@@ -14,17 +14,20 @@
 		4C05E7AB1D35AA6400531BA7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C05E7A91D35AA6400531BA7 /* LaunchScreen.storyboard */; };
 		4C081F071D42C67A00DD5867 /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C081F061D42C67A00DD5867 /* FriendsTableViewController.swift */; };
 		4C081F0B1D42C73E00DD5867 /* FriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C081F0A1D42C73E00DD5867 /* FriendsTableViewCell.swift */; };
-		4C1703E31D4147A400D72EAE /* AskForSendRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1703E21D4147A400D72EAE /* AskForSendRequestViewController.swift */; };
 		4C1705921D414D3C00D72EAE /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1705911D414D3C00D72EAE /* FBSDKCoreKit.framework */; };
 		4C1705951D414DAA00D72EAE /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1705931D414DAA00D72EAE /* FBSDKLoginKit.framework */; };
 		4C1705961D414DAA00D72EAE /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1705941D414DAA00D72EAE /* FBSDKShareKit.framework */; };
 		4C1705981D41517E00D72EAE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1705971D41517E00D72EAE /* LoginViewController.swift */; };
+		4C1F07AC1D47E6A40089EC02 /* NewsFeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1F07AB1D47E6A40089EC02 /* NewsFeedTableViewCell.swift */; };
 		4C2F7E001D3D905500DAEC70 /* 1468899041_location.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C2F7DFD1D3D905500DAEC70 /* 1468899041_location.png */; };
 		4C2F7E011D3D905500DAEC70 /* 1468899041_location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C2F7DFE1D3D905500DAEC70 /* 1468899041_location@2x.png */; };
 		4C2F7E021D3D905500DAEC70 /* 1468899041_location@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C2F7DFF1D3D905500DAEC70 /* 1468899041_location@3x.png */; };
 		4C2F7E061D3D90C400DAEC70 /* 1468899170_Searchicons-search-locations.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C2F7E031D3D90C400DAEC70 /* 1468899170_Searchicons-search-locations.png */; };
 		4C2F7E071D3D90C400DAEC70 /* 1468899170_Searchicons-search-locations@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C2F7E041D3D90C400DAEC70 /* 1468899170_Searchicons-search-locations@2x.png */; };
 		4C2F7E081D3D90C400DAEC70 /* 1468899170_Searchicons-search-locations@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C2F7E051D3D90C400DAEC70 /* 1468899170_Searchicons-search-locations@3x.png */; };
+		4C387EA91D4FCEC7003B4DB1 /* Invitation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C387EA81D4FCEC7003B4DB1 /* Invitation.swift */; };
+		4C387EAB1D4FE894003B4DB1 /* ResponseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C387EAA1D4FE894003B4DB1 /* ResponseViewController.swift */; };
+		4C387EAD1D501585003B4DB1 /* FriendsNameFacebookID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C387EAC1D501585003B4DB1 /* FriendsNameFacebookID.swift */; };
 		4C4AF4521D46704A00FDEC11 /* Seems like you have .png in Resources */ = {isa = PBXBuildFile; fileRef = 4C4AF44F1D46704A00FDEC11 /* Seems like you have .png */; };
 		4C4AF4531D46704A00FDEC11 /* Seems like you have @2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C4AF4501D46704A00FDEC11 /* Seems like you have @2x.png */; };
 		4C4AF4541D46704A00FDEC11 /* Seems like you have @3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C4AF4511D46704A00FDEC11 /* Seems like you have @3x.png */; };
@@ -32,6 +35,9 @@
 		4C4AF45A1D46AD7A00FDEC11 /* 1469246625_ic_keyboard_arrow_left_48px.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C4AF4571D46AD7A00FDEC11 /* 1469246625_ic_keyboard_arrow_left_48px.png */; };
 		4C4AF45B1D46AD7A00FDEC11 /* 1469246625_ic_keyboard_arrow_left_48px@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C4AF4581D46AD7A00FDEC11 /* 1469246625_ic_keyboard_arrow_left_48px@2x.png */; };
 		4C4AF45C1D46AD7A00FDEC11 /* 1469246625_ic_keyboard_arrow_left_48px@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C4AF4591D46AD7A00FDEC11 /* 1469246625_ic_keyboard_arrow_left_48px@3x.png */; };
+		4C4EA4761D4BB9F100A4AB44 /* Friends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4EA4751D4BB9F100A4AB44 /* Friends.swift */; };
+		4C4EA4781D4C04FD00A4AB44 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4EA4771D4C04FD00A4AB44 /* Place.swift */; };
+		4C4EA47A1D4C285500A4AB44 /* SeeAnswerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4EA4791D4C285500A4AB44 /* SeeAnswerViewController.swift */; };
 		4C5CD6BB1D383DFB00F82B10 /* Star 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5CD6B81D383DFB00F82B10 /* Star 2.png */; };
 		4C5CD6BC1D383DFB00F82B10 /* Star 2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5CD6B91D383DFB00F82B10 /* Star 2@2x.png */; };
 		4C5CD6BD1D383DFB00F82B10 /* Star 2@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5CD6BA1D383DFB00F82B10 /* Star 2@3x.png */; };
@@ -55,9 +61,9 @@
 		4C6A52641D39960100CF0880 /* UserSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6A52631D39960100CF0880 /* UserSelection.swift */; };
 		4C7746181D4016420083E364 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C7746171D4016420083E364 /* GoogleService-Info.plist */; };
 		4C77461A1D4038790083E364 /* ListPlacesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7746191D4038790083E364 /* ListPlacesTableViewController.swift */; };
+		4C80AB1D1D4AAC6A00290917 /* GetDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C80AB1C1D4AAC6A00290917 /* GetDataService.swift */; };
 		4C9B0D3D1D427F3300FC5F2E /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9B0D3C1D427F3300FC5F2E /* DataService.swift */; };
 		4C9B0D3F1D42938900FC5F2E /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9B0D3E1D42938900FC5F2E /* FBAudienceNetwork.framework */; };
-		4C9B0D431D42A4BF00FC5F2E /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9B0D421D42A4BF00FC5F2E /* FriendsViewController.swift */; };
 		4CA4D1D51D3D92A70040EA92 /* 1468899655_miscellaneous-31.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CA4D1D21D3D92A70040EA92 /* 1468899655_miscellaneous-31.png */; };
 		4CA4D1D61D3D92A70040EA92 /* 1468899655_miscellaneous-31@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CA4D1D31D3D92A70040EA92 /* 1468899655_miscellaneous-31@2x.png */; };
 		4CA4D1D71D3D92A70040EA92 /* 1468899655_miscellaneous-31@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CA4D1D41D3D92A70040EA92 /* 1468899655_miscellaneous-31@3x.png */; };
@@ -97,7 +103,7 @@
 
 /* Begin PBXFileReference section */
 		44EDC626DB77899786956734 /* Pods_Mapbox_demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mapbox_demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4C05E79D1D35AA6400531BA7 /* Mapbox_demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mapbox_demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C05E79D1D35AA6400531BA7 /* Choicest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Choicest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C05E7A01D35AA6400531BA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C05E7A21D35AA6400531BA7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = ../ViewController.swift; sourceTree = "<group>"; };
 		4C05E7A51D35AA6400531BA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -106,17 +112,20 @@
 		4C05E7AC1D35AA6400531BA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4C081F061D42C67A00DD5867 /* FriendsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
 		4C081F0A1D42C73E00DD5867 /* FriendsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsTableViewCell.swift; sourceTree = "<group>"; };
-		4C1703E21D4147A400D72EAE /* AskForSendRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AskForSendRequestViewController.swift; sourceTree = "<group>"; };
 		4C1705911D414D3C00D72EAE /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		4C1705931D414DAA00D72EAE /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		4C1705941D414DAA00D72EAE /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		4C1705971D41517E00D72EAE /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		4C1F07AB1D47E6A40089EC02 /* NewsFeedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedTableViewCell.swift; sourceTree = "<group>"; };
 		4C2F7DFD1D3D905500DAEC70 /* 1468899041_location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1468899041_location.png; sourceTree = "<group>"; };
 		4C2F7DFE1D3D905500DAEC70 /* 1468899041_location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1468899041_location@2x.png"; sourceTree = "<group>"; };
 		4C2F7DFF1D3D905500DAEC70 /* 1468899041_location@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1468899041_location@3x.png"; sourceTree = "<group>"; };
 		4C2F7E031D3D90C400DAEC70 /* 1468899170_Searchicons-search-locations.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1468899170_Searchicons-search-locations.png"; sourceTree = "<group>"; };
 		4C2F7E041D3D90C400DAEC70 /* 1468899170_Searchicons-search-locations@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1468899170_Searchicons-search-locations@2x.png"; sourceTree = "<group>"; };
 		4C2F7E051D3D90C400DAEC70 /* 1468899170_Searchicons-search-locations@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1468899170_Searchicons-search-locations@3x.png"; sourceTree = "<group>"; };
+		4C387EA81D4FCEC7003B4DB1 /* Invitation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Invitation.swift; sourceTree = "<group>"; };
+		4C387EAA1D4FE894003B4DB1 /* ResponseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseViewController.swift; sourceTree = "<group>"; };
+		4C387EAC1D501585003B4DB1 /* FriendsNameFacebookID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsNameFacebookID.swift; sourceTree = "<group>"; };
 		4C4AF44F1D46704A00FDEC11 /* Seems like you have .png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Seems like you have .png"; sourceTree = "<group>"; };
 		4C4AF4501D46704A00FDEC11 /* Seems like you have @2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Seems like you have @2x.png"; sourceTree = "<group>"; };
 		4C4AF4511D46704A00FDEC11 /* Seems like you have @3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Seems like you have @3x.png"; sourceTree = "<group>"; };
@@ -124,6 +133,9 @@
 		4C4AF4571D46AD7A00FDEC11 /* 1469246625_ic_keyboard_arrow_left_48px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1469246625_ic_keyboard_arrow_left_48px.png; sourceTree = "<group>"; };
 		4C4AF4581D46AD7A00FDEC11 /* 1469246625_ic_keyboard_arrow_left_48px@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1469246625_ic_keyboard_arrow_left_48px@2x.png"; sourceTree = "<group>"; };
 		4C4AF4591D46AD7A00FDEC11 /* 1469246625_ic_keyboard_arrow_left_48px@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1469246625_ic_keyboard_arrow_left_48px@3x.png"; sourceTree = "<group>"; };
+		4C4EA4751D4BB9F100A4AB44 /* Friends.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friends.swift; sourceTree = "<group>"; };
+		4C4EA4771D4C04FD00A4AB44 /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
+		4C4EA4791D4C285500A4AB44 /* SeeAnswerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeeAnswerViewController.swift; sourceTree = "<group>"; };
 		4C5CD6B81D383DFB00F82B10 /* Star 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Star 2.png"; path = "../../../../Downloads/Star 2.png"; sourceTree = "<group>"; };
 		4C5CD6B91D383DFB00F82B10 /* Star 2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Star 2@2x.png"; path = "../../../../Downloads/Star 2@2x.png"; sourceTree = "<group>"; };
 		4C5CD6BA1D383DFB00F82B10 /* Star 2@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Star 2@3x.png"; path = "../../../../Downloads/Star 2@3x.png"; sourceTree = "<group>"; };
@@ -149,9 +161,9 @@
 		4C6A52631D39960100CF0880 /* UserSelection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSelection.swift; sourceTree = "<group>"; };
 		4C7746171D4016420083E364 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "Images/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4C7746191D4038790083E364 /* ListPlacesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListPlacesTableViewController.swift; sourceTree = "<group>"; };
+		4C80AB1C1D4AAC6A00290917 /* GetDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetDataService.swift; sourceTree = "<group>"; };
 		4C9B0D3C1D427F3300FC5F2E /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		4C9B0D3E1D42938900FC5F2E /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
-		4C9B0D421D42A4BF00FC5F2E /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		4CA4D1D21D3D92A70040EA92 /* 1468899655_miscellaneous-31.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1468899655_miscellaneous-31.png"; sourceTree = "<group>"; };
 		4CA4D1D31D3D92A70040EA92 /* 1468899655_miscellaneous-31@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1468899655_miscellaneous-31@2x.png"; sourceTree = "<group>"; };
 		4CA4D1D41D3D92A70040EA92 /* 1468899655_miscellaneous-31@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1468899655_miscellaneous-31@3x.png"; sourceTree = "<group>"; };
@@ -228,7 +240,7 @@
 		4C05E79E1D35AA6400531BA7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4C05E79D1D35AA6400531BA7 /* Mapbox_demo.app */,
+				4C05E79D1D35AA6400531BA7 /* Choicest.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -311,6 +323,7 @@
 		4C5CD6D71D38534400F82B10 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				4C7746191D4038790083E364 /* ListPlacesTableViewController.swift */,
 				4C05E7A21D35AA6400531BA7 /* ViewController.swift */,
 				4CD701AE1D3D3B3100552EED /* TabScrollViewController.swift */,
 				4CB2E5271D383B6600BCE278 /* RandomPopViewController.swift */,
@@ -318,13 +331,12 @@
 				4CB2E51F1D3811BD00BCE278 /* SearchAutoCompleteTableViewController.swift */,
 				4CD701B81D3D5CFB00552EED /* BobaMapViewController.swift */,
 				4CD701BA1D3D616400552EED /* ActivitiesViewController.swift */,
-				4CA4D1DE1D3D94DF0040EA92 /* ListTableViewController.swift */,
-				4C7746191D4038790083E364 /* ListPlacesTableViewController.swift */,
-				4C1703E21D4147A400D72EAE /* AskForSendRequestViewController.swift */,
 				4C1705971D41517E00D72EAE /* LoginViewController.swift */,
-				4C9B0D421D42A4BF00FC5F2E /* FriendsViewController.swift */,
 				4C081F061D42C67A00DD5867 /* FriendsTableViewController.swift */,
+				4CA4D1DE1D3D94DF0040EA92 /* ListTableViewController.swift */,
 				4C4AF4551D46743800FDEC11 /* NoFriendsViewController.swift */,
+				4C4EA4791D4C285500A4AB44 /* SeeAnswerViewController.swift */,
+				4C387EAA1D4FE894003B4DB1 /* ResponseViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -344,6 +356,7 @@
 			children = (
 				4C6A52591D397A2D00CF0880 /* ServiceManager.swift */,
 				4C9B0D3C1D427F3300FC5F2E /* DataService.swift */,
+				4C80AB1C1D4AAC6A00290917 /* GetDataService.swift */,
 			);
 			path = Server;
 			sourceTree = "<group>";
@@ -360,6 +373,11 @@
 				4CD701CE1D3D6D7C00552EED /* Pin.swift */,
 				4CD701D01D3D7B9400552EED /* Index.swift */,
 				4C081F0A1D42C73E00DD5867 /* FriendsTableViewCell.swift */,
+				4C1F07AB1D47E6A40089EC02 /* NewsFeedTableViewCell.swift */,
+				4C4EA4751D4BB9F100A4AB44 /* Friends.swift */,
+				4C4EA4771D4C04FD00A4AB44 /* Place.swift */,
+				4C387EA81D4FCEC7003B4DB1 /* Invitation.swift */,
+				4C387EAC1D501585003B4DB1 /* FriendsNameFacebookID.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -396,7 +414,7 @@
 			);
 			name = Mapbox_demo;
 			productName = Mapbox_demo;
-			productReference = 4C05E79D1D35AA6400531BA7 /* Mapbox_demo.app */;
+			productReference = 4C05E79D1D35AA6400531BA7 /* Choicest.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -553,20 +571,26 @@
 				4C05E7A31D35AA6400531BA7 /* ViewController.swift in Sources */,
 				4CD701B91D3D5CFB00552EED /* BobaMapViewController.swift in Sources */,
 				4C05E7A11D35AA6400531BA7 /* AppDelegate.swift in Sources */,
+				4C4EA47A1D4C285500A4AB44 /* SeeAnswerViewController.swift in Sources */,
 				4C6A52601D39871A00CF0880 /* Config.swift in Sources */,
 				4C9B0D3D1D427F3300FC5F2E /* DataService.swift in Sources */,
 				4CB2E5221D3814CF00BCE278 /* SearchText.swift in Sources */,
+				4C387EA91D4FCEC7003B4DB1 /* Invitation.swift in Sources */,
 				4CB2E5281D383B6600BCE278 /* RandomPopViewController.swift in Sources */,
 				4CD701AF1D3D3B3100552EED /* TabScrollViewController.swift in Sources */,
 				4C77461A1D4038790083E364 /* ListPlacesTableViewController.swift in Sources */,
-				4C1703E31D4147A400D72EAE /* AskForSendRequestViewController.swift in Sources */,
+				4C387EAD1D501585003B4DB1 /* FriendsNameFacebookID.swift in Sources */,
+				4C80AB1D1D4AAC6A00290917 /* GetDataService.swift in Sources */,
 				4C4AF4561D46743800FDEC11 /* NoFriendsViewController.swift in Sources */,
+				4C4EA4761D4BB9F100A4AB44 /* Friends.swift in Sources */,
 				4C611C741D42B4C300E8E169 /* SWRevealViewController.m in Sources */,
+				4C387EAB1D4FE894003B4DB1 /* ResponseViewController.swift in Sources */,
 				4CD701D11D3D7B9400552EED /* Index.swift in Sources */,
+				4C4EA4781D4C04FD00A4AB44 /* Place.swift in Sources */,
+				4C1F07AC1D47E6A40089EC02 /* NewsFeedTableViewCell.swift in Sources */,
 				4CD701BB1D3D616400552EED /* ActivitiesViewController.swift in Sources */,
 				4C6A52621D3995BB00CF0880 /* Places.swift in Sources */,
 				4C6A525E1D39834800CF0880 /* Restaurant.swift in Sources */,
-				4C9B0D431D42A4BF00FC5F2E /* FriendsViewController.swift in Sources */,
 				4C081F0B1D42C73E00DD5867 /* FriendsTableViewCell.swift in Sources */,
 				4CB2E5261D383A8400BCE278 /* FilterPopUpViewController.swift in Sources */,
 				4CD701CF1D3D6D7C00552EED /* Pin.swift in Sources */,
@@ -699,7 +723,7 @@
 				INFOPLIST_FILE = Mapbox_demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wiwen.Mappie;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Choicest;
 				SWIFT_OBJC_BRIDGING_HEADER = "Mapbox_demo/Mapbox_demo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -720,7 +744,7 @@
 				INFOPLIST_FILE = Mapbox_demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wiwen.Mappie;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Choicest;
 				SWIFT_OBJC_BRIDGING_HEADER = "Mapbox_demo/Mapbox_demo-Bridging-Header.h";
 			};
 			name = Release;

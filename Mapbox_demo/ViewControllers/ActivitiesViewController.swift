@@ -24,7 +24,7 @@ class ActivitiesViewController: UIViewController, CLLocationManagerDelegate, MGL
     
     
     var index: Int = 2
-
+    
     @IBOutlet weak var mapView: MGLMapView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +48,7 @@ class ActivitiesViewController: UIViewController, CLLocationManagerDelegate, MGL
         
         print(searchBarText14)
         callServiceManager(searchBarText14)
-
+        
     }
     
     
@@ -65,7 +65,7 @@ class ActivitiesViewController: UIViewController, CLLocationManagerDelegate, MGL
         }
         self.mapView.reloadInputViews()
     }
-
+    
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
@@ -80,10 +80,10 @@ class ActivitiesViewController: UIViewController, CLLocationManagerDelegate, MGL
         let options = ReverseGeocodeOptions(coordinate: CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude))
         
         let task = geocoder.geocode(options: options) { (placemarks, attribution, error) in
-        let placemark = placemarks![0]
-        self.callServiceManager(placemark.postalAddress!.street)
+            let placemark = placemarks![0]
+            self.callServiceManager(placemark.postalAddress!.street)
         }
-   
+        
     }
     
     
@@ -109,7 +109,7 @@ class ActivitiesViewController: UIViewController, CLLocationManagerDelegate, MGL
         self.mapView.addAnnotation(point)
         self.mapView.reloadInputViews()
     }
-
+    
     func mapView(mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
         // Always try to show a callout when an annotation is tapped.
         return true

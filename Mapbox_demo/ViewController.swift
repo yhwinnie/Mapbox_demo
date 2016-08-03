@@ -19,13 +19,13 @@ import FirebaseAuth
 
 class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate {
     
-
+    
     let geocoder = Geocoder.sharedGeocoder
     let directions = Directions.sharedDirections
     
-   // let rootRef = FIRDatabase.database().referenceFromURL("https://mappie-1369.firebaseio.com/user")
-   // var messageRef: FIRDatabaseReference!
-
+    // let rootRef = FIRDatabase.database().referenceFromURL("https://mappie-1369.firebaseio.com/user")
+    // var messageRef: FIRDatabaseReference!
+    
     
     // let ref = Firebase(url: "https://mappie-1369.firebaseio.com/user")
     
@@ -43,7 +43,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
@@ -65,30 +65,30 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDel
         
         //let searchBarText = NSUserDefaults.standardUserDefaults().objectForKey("searchBarText")
         
-            print(searchBarText14)
-            serviceManager.allNearbyRestaurantsRequest(String(searchBarText14)) { (listRestaurants, coordinates) in
-                let center = CLLocationCoordinate2D(latitude: coordinates.latitude, longitude: coordinates.longitude)
-                self.mapView.setCenterCoordinate(center, zoomLevel: 12, animated: true)
+        print(searchBarText14)
+        serviceManager.allNearbyRestaurantsRequest(String(searchBarText14)) { (listRestaurants, coordinates) in
+            let center = CLLocationCoordinate2D(latitude: coordinates.latitude, longitude: coordinates.longitude)
+            self.mapView.setCenterCoordinate(center, zoomLevel: 12, animated: true)
             
-                let currentPoint = MGLPointAnnotation()
-                currentPoint.coordinate = coordinates
-                self.mapView.addAnnotation(currentPoint)
-                list = listRestaurants
-                for pin in listRestaurants {
+            let currentPoint = MGLPointAnnotation()
+            currentPoint.coordinate = coordinates
+            self.mapView.addAnnotation(currentPoint)
+            list = listRestaurants
+            for pin in listRestaurants {
                 //print(each)
                 self.dropPin(pin)
-                }
             }
-            self.mapView.reloadInputViews()
         }
-
-
+        self.mapView.reloadInputViews()
+    }
+    
+    
     func dropPin(pin: Pin) {
-                let point = MGLPointAnnotation()
-                point.coordinate = pin.coordinates
-                point.title = pin.name
-                point.subtitle = pin.address
-                self.mapView.addAnnotation(point)
+        let point = MGLPointAnnotation()
+        point.coordinate = pin.coordinates
+        point.title = pin.name
+        point.subtitle = pin.address
+        self.mapView.addAnnotation(point)
     }
     
     func UIChanges() {
@@ -105,9 +105,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDel
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "goSegue" {
             self.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
-
+            
         }
-
+        
         if segue.identifier == "HelpMe" {
             let viewController = segue.destinationViewController as! RandomPopViewController
             viewController.indexSelected = index
@@ -120,7 +120,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDel
         let location = locations.last
         mapView.userTrackingMode = .Follow
         let center = CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude)
-    
+        
         
         mapView.setCenterCoordinate(center, zoomLevel: 14, animated: true)
         self.locationManager.stopUpdatingLocation()
@@ -141,24 +141,24 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDel
         print ("Errors:" + error.localizedDescription)
     }
     
-//    func covertAddressToLatLon(addresses: [String]) {
-//        
-//        for address in addresses {
-//        
-//            let address = address
-//            let geocoder = CLGeocoder()
-//        
-//            geocoder.geocodeAddressString(address, completionHandler: {(placemarks, error) -> Void in
-//                if((error) != nil){
-//                    print("Error", error)
-//                }
-//                if let placemark = placemarks?.first {
-//                    let coordinates:CLLocationCoordinate2D = placemark.location!.coordinate
-//                    self.dropPin(coordinates)
-//                }
-//            })
-//        }
-//    }
+    //    func covertAddressToLatLon(addresses: [String]) {
+    //
+    //        for address in addresses {
+    //
+    //            let address = address
+    //            let geocoder = CLGeocoder()
+    //
+    //            geocoder.geocodeAddressString(address, completionHandler: {(placemarks, error) -> Void in
+    //                if((error) != nil){
+    //                    print("Error", error)
+    //                }
+    //                if let placemark = placemarks?.first {
+    //                    let coordinates:CLLocationCoordinate2D = placemark.location!.coordinate
+    //                    self.dropPin(coordinates)
+    //                }
+    //            })
+    //        }
+    //    }
     
     func mapView(mapView: MGLMapView, imageForAnnotation annotation: MGLAnnotation) -> MGLAnnotationImage? {
         // Try to reuse the existing ‘pisa’ annotation image, if it exists.
@@ -185,7 +185,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDel
         
         return annotationImage
     }
-
+    
     
     func polyRoute() {
         let pointw = MGLPointAnnotation()
@@ -204,7 +204,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDel
         point3.coordinate = CLLocationCoordinate2D(latitude: 34.742133, longitude: -77.0367)
         self.mapView.addAnnotation(point3)
         let waypoints = [
-
+            
             Waypoint(
                 coordinate: CLLocationCoordinate2D(latitude: 38.9131752, longitude: -77.0324047),
                 name: "Mapbox"),
@@ -214,7 +214,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDel
             Waypoint(
                 coordinate: CLLocationCoordinate2D(latitude: 34.742133, longitude: -77.0367),
                 name: "White House")
-            ]
+        ]
         let options = RouteOptions(
             waypoints: waypoints,
             profileIdentifier: MBDirectionsProfileIdentifierAutomobile)
@@ -267,7 +267,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDel
 //extension ViewController: UISearchBarDelegate {
 //    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
 //        let searchController = storyboard!.instantiateViewControllerWithIdentifier("Search") as! SearchAutoCompleteTableViewController
-//        
+//
 //        self.presentViewController(searchController, animated: true, completion: nil)
 //    }
 //}

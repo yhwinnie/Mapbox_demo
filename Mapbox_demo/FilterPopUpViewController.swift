@@ -13,18 +13,18 @@ import SwiftyJSON
 class FilterPopUpViewController: UIViewController {
     
     var indexSelected: Int = 0
-
-
+    
+    
     @IBOutlet weak var smallView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         smallView.layer.cornerRadius = 10.0
         smallView.layer.borderColor = UIColor.grayColor().CGColor
         smallView.layer.borderWidth = 0.5
         smallView.clipsToBounds = true
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -37,7 +37,7 @@ class FilterPopUpViewController: UIViewController {
         super.touchesBegan(touches, withEvent:event)
     }
     
-
+    
     @IBAction func searchButton(sender: AnyObject) {
         let storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         let viewController = storyboard.instantiateViewControllerWithIdentifier("Random") as! RandomPopViewController

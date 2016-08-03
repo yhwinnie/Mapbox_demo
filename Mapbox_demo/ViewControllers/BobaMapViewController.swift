@@ -22,9 +22,9 @@ class BobaMapViewController: UIViewController, CLLocationManagerDelegate, MGLMap
     
     
     //var searchBarText = NSUserDefaults.standardUserDefaults().objectForKey("searchBarText")
-
+    
     var index: Int = 1
-
+    
     @IBOutlet weak var mapView: MGLMapView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +47,7 @@ class BobaMapViewController: UIViewController, CLLocationManagerDelegate, MGLMap
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         print(searchBarText14)
         callServiceManager(searchBarText14)
     }
@@ -98,7 +98,7 @@ class BobaMapViewController: UIViewController, CLLocationManagerDelegate, MGLMap
         
         return annotationImage
     }
-
+    
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
@@ -125,7 +125,7 @@ class BobaMapViewController: UIViewController, CLLocationManagerDelegate, MGLMap
         if segue.identifier == "HelpMe" {
             let viewController = segue.destinationViewController as! RandomPopViewController
             viewController.indexSelected = index
- 
+            
         }
     }
     
@@ -139,5 +139,5 @@ class BobaMapViewController: UIViewController, CLLocationManagerDelegate, MGLMap
         return true
     }
     
-
+    
 }

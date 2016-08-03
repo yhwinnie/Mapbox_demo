@@ -7,19 +7,38 @@
 //
 
 import UIKit
+import FirebaseDatabase
+import FirebaseAuth
+import Firebase
+import FBSDKLoginKit
+import FBSDKShareKit
 
 class ListTableViewController: UITableViewController {
-
+    
+    // Variables
+    let getDataServer = GetDataService()
+    var invitationArray = [Invitation]()
+    var userFacebookId: String = ""
+    
+    // IBOutlet
     @IBOutlet weak var menuButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        if self.revealViewController() != nil {
-            menuButton.target = self.revealViewController()
-            menuButton.action = "revealToggle:"
-            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-        }
         
+        self.getDataServer.getFacebookID { (facebookID) in
+            self.userFacebookId = facebookID
+            self.getDataServer.requestInvitations(facebookID, complete: { (invitations) in
+                self.invitationArray = invitations
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.tableView.reloadData()
+                }
+            })
+        }
+        uiChanges()
+    }
+    
+    func uiChanges() {
         // set navigation bar appearance
         if let navigationBar = self.navigationController?.navigationBar {
             navigationBar.translucent = false
@@ -31,77 +50,70 @@ class ListTableViewController: UITableViewController {
         }
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
     }
-
+    
+    
+    @IBAction func signOutAction(sender: AnyObject) {
+        let loginManager = FBSDKLoginManager()
+        loginManager.logOut()
+        let vc = self.storyboard!.instantiateViewControllerWithIdentifier("tabBar")
+        self.presentViewController(vc, animated: true, completion: nil)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 1
+        return self.invitationArray.count
     }
-
+    
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! NewsFeedTableViewCell
+        
+        var person: String = ""
+        let invitation = invitationArray[indexPath.row]
+        var fromPerson = invitation.fromPersonName
+        let toFriends = invitation.to
+        
+        if userFacebookId == invitation.fromPersonID {
+            fromPerson = "You"
+        }
+        
+        for friend in toFriends {
+            print(friend)
+            person += " \(friend)"
+        }
+        
+        cell.requestLabel?.text = "\(fromPerson) invited\(person)"
+        cell.placeNameLabel?.text = "\(invitation.restaurantName)"
+        cell.dateLabel?.text = "\(invitation.date)"
         return cell
     }
- 
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        let invite = invitationArray[indexPath.row]
+        
+        if invite.fromPersonID == userFacebookId {
+            let viewc = self.storyboard!.instantiateViewControllerWithIdentifier("SeeAnswer") as! SeeAnswerViewController
+            viewc.placeID = invite.placeID 
+            self.presentViewController(viewc, animated: true, completion: nil)
+            
+        } else {
+            
+            let viewc = self.storyboard!.instantiateViewControllerWithIdentifier("respondView") as! ResponseViewController
+            viewc.placeID = invite.placeID 
+            self.presentViewController(viewc, animated: true, completion: nil)
+        }
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

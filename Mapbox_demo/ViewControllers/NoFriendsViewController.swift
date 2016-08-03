@@ -12,7 +12,7 @@ import FBSDKMessengerShareKit
 import FBAudienceNetwork
 
 class NoFriendsViewController: UIViewController, FBSDKAppInviteDialogDelegate {
-
+    
     @IBOutlet weak var label: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,9 +22,9 @@ class NoFriendsViewController: UIViewController, FBSDKAppInviteDialogDelegate {
         label.font = UIFont.systemFontOfSize(14.0);
         label.text = "Seems like you don't have any friends yet.\nWhy don't you invite your friends to use the app?";
         self.view.addSubview(label);
-
+        
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -48,7 +48,5 @@ class NoFriendsViewController: UIViewController, FBSDKAppInviteDialogDelegate {
         // Present the dialog. Assumes self is a view controller
         // which implements the protocol `FBSDKAppInviteDialogDelegate`.
         FBSDKAppInviteDialog.showFromViewController(self, withContent: content, delegate: self)
-        
-        
     }
 }

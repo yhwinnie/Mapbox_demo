@@ -26,15 +26,15 @@ class TabScrollViewController: UIViewController, ACTabScrollViewDelegate, ACTabS
     var searchBarText1 = SearchText()
     let locationManager = CLLocationManager()
     let geocoder = Geocoder.sharedGeocoder
-
-
+    
+    
     @IBOutlet weak var tabScrollView: ACTabScrollView!
     
     lazy   var searchBar:UISearchBar = UISearchBar(frame: CGRectMake(0, 0, 300, 20))
-
+    
     var viewControllers = [UIViewController]()
     var indexSelected: Int = 0
-
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -54,7 +54,7 @@ class TabScrollViewController: UIViewController, ACTabScrollViewDelegate, ACTabS
         tabScrollView.delegate = self
         tabScrollView.dataSource = self
         tabScrollView.defaultPage = 3
-
+        
         let storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         viewControllers.append(storyboard.instantiateViewControllerWithIdentifier("MapView") as! ViewController)
         viewControllers.append(storyboard.instantiateViewControllerWithIdentifier("BobaMap") as! BobaMapViewController)
@@ -85,7 +85,7 @@ class TabScrollViewController: UIViewController, ACTabScrollViewDelegate, ACTabS
             navigationBar.shadowImage = UIImage()
         }
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
-
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -115,7 +115,7 @@ class TabScrollViewController: UIViewController, ACTabScrollViewDelegate, ACTabS
         // create a label
         let label = UILabel()
         label.text = names[index]
-            label.textAlignment = .Center
+        label.textAlignment = .Center
         
         // if the size of your tab is not fixed, you can adjust the size by the following way.
         label.sizeToFit() // resize the label to the size of content
@@ -132,7 +132,7 @@ class TabScrollViewController: UIViewController, ACTabScrollViewDelegate, ACTabS
     }
     
     @IBAction func unwindToHome(segue: UIStoryboardSegue) {
-       // let sourceController = segue.sourceViewController as! EnterAddressesViewController
+        // let sourceController = segue.sourceViewController as! EnterAddressesViewController
     }
 }
 
@@ -164,7 +164,7 @@ extension TabScrollViewController: CLLocationManagerDelegate {
             //NSUserDefaults.standardUserDefaults().setObject(self.searchBar.text, forKey: "searchBarText")
         }
     }
-
+    
     func  locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         print ("Errors:" + error.localizedDescription)
     }

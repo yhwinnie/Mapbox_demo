@@ -14,143 +14,109 @@ import FirebaseAuth
 import FirebaseDatabase
 
 class FriendsTableViewController: UITableViewController {
+    
+    let getDataServer = GetDataService()
     var name: String = ""
-    var url: String = ""
-    var count: Int = 0
-
+    var userId: String = ""
+    var index = [Int]()
+    var arr = [String: String]()
+    
+    var friendsArr = [Friends]()
+    var place = Place()
+    var uuid = NSUUID().UUIDString
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-
-
-    @IBAction func signOut(sender: AnyObject) {
+        if index.isEmpty {
+            sendButton.enabled = false
+        }
+        getDataServer.getFriendsInfo { (friendsList) in
+            self.friendsArr = friendsList
+            self.getPersonalInfo()
+            dispatch_async(dispatch_get_main_queue()) {
+                self.tableView.reloadData()
+            }
+        }
         
-        let loginManager = FBSDKLoginManager()
-        loginManager.logOut()
-        let vc = self.storyboard!.instantiateViewControllerWithIdentifier("tabBar")
-        self.presentViewController(vc, animated: true, completion: nil)
     }
     
-
+    // Get personal information
+    func getPersonalInfo () {
+        self.getDataServer.getFacebookID { (facebookID) in
+            self.getDataServer.getUserName({ (name) in
+                self.name = name
+                self.userId = facebookID
+            })
+        }
+    }
+    
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 2
+        return friendsArr.count
     }
-
-
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! FriendsTableViewCell
         
-        let params = ["fields": "id, first_name, last_name, middle_name, name, email, picture"]
+        let name = friendsArr[indexPath.row].name
+        let picture = friendsArr[indexPath.row].image
         
-        let fbRequest = FBSDKGraphRequest(graphPath:"/me/friends", parameters: params
-        );
-        fbRequest.startWithCompletionHandler { (connection : FBSDKGraphRequestConnection!, result : AnyObject!, error : NSError!) -> Void in
-            
-            if error == nil {
-                if let userNameArray : NSArray = result.valueForKey("data") as? NSArray
-                {
-                    
-                    //self.count = userNameArray.count
-                    self.count = userNameArray.count
-                    
-                    if userNameArray.count == 0 {
-                        print("You do not have friends yet!")
-                    } else {
-                        //var i: Int = 0
-                        
-                        let id = userNameArray[indexPath.row].valueForKey("id") as! String
-                        print(id)
-                        
-                        cell.friendsNameLabel.text = userNameArray[indexPath.row].valueForKey("name") as! String
-                        var picture = userNameArray[indexPath.row].valueForKey("picture")?.valueForKey("data")?.valueForKey("url") as! String
-                        var url = NSURL(string: picture)
-                        if let url = url {
-                            cell.imageView2.af_setImageWithURL(url)
-       
-                        }
-                    }
-                } else {
-                    print("Error Getting Friends \(error)");
-                }
-            }
-        }
-
+        cell.friendsNameLabel?.text = name
+        cell.imageView2.af_setImageWithURL(NSURL(string: picture)!)
+        
         return cell
     }
     
+    @IBAction func sendToFriendsAction(sender: AnyObject) {
+        
+        for i in self.index {
+            let friend = friendsArr[i]
+            self.arr[friend.id] = friend.name
+            friend.requestID = self.uuid
+            
+            let currentDate = NSDate()
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.locale = NSLocale.currentLocale()
+    
+            dateFormatter.dateStyle = NSDateFormatterStyle.FullStyle
+            var convertedDate = dateFormatter.stringFromDate(currentDate)
+            
+            
+            // Save other information
+            DataService.dataService.saveInformationToFirebase(self.userId, uuid: self.uuid, friendRequestId: friend.requestID, friendId: friend.id, userName: self.name, friendName: friend.name, array: self.arr, date: convertedDate)
+            
+            // Save place
+            DataService.dataService.savePlaceToFirebase(friend.requestID, place: self.place)
+            
+        }
+        self.performSegueWithIdentifier("ToFriendsList", sender: nil)
+    }
+    
+    
+    @IBOutlet weak var sendButton: UIButton!
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
         if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+            
             if cell.accessoryType == .Checkmark
             {
                 cell.accessoryType = .None
+                
+                let removeIndex = index.indexOf(indexPath.row)
+                index.removeAtIndex(removeIndex!)
+                if index.isEmpty {
+                    sendButton.enabled = false
+                }
             }
             else
             {
+                sendButton.enabled = true
                 cell.accessoryType = .Checkmark
-                var ref = FIRDatabaseReference.init()
-                ref = FIRDatabase.database().reference()
-                let userID = FIRAuth.auth()?.currentUser?.uid
-                
-                if let userID = userID {
-                    print(userID)
-                    ref.child("users/requests/request1").setValue(true)
-                    ref.child("requests/request1/From").setValue(userID)
-                    
-                }
+                index.append(indexPath.row)
             }
         }
     }
-
-    
-
-
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

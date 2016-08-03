@@ -13,9 +13,9 @@ import MapboxGeocoder
 
 class SearchAutoCompleteTableViewController: UITableViewController {
     var resultsArray = [String]()
-
+    
     lazy   var searchBar:UISearchBar = UISearchBar(frame: CGRectMake(0, 0, 345, 20))
-   // @IBOutlet weak var searchBar: UISearchBar!
+    // @IBOutlet weak var searchBar: UISearchBar!
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
@@ -35,22 +35,22 @@ class SearchAutoCompleteTableViewController: UITableViewController {
         }
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
     }
-
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return resultsArray.count
     }
-
-
-
+    
+    
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-
+        
         cell.textLabel?.text = resultsArray[indexPath.row]
-
+        
         return cell
     }
     
@@ -60,12 +60,11 @@ class SearchAutoCompleteTableViewController: UITableViewController {
             let viewController = segue.destinationViewController as! TabScrollViewController
             
             searchBarText14 = self.resultsArray[index!.row]
-
+            
             viewController.searchBarText1.searchBarText = self.resultsArray[index!.row]
-//            print(self.resultsArray[index!.row])
-//            print(viewController.searchBarText1.searchBarText = self.resultsArray[index!.row])
+            //            print(self.resultsArray[index!.row])
+            //            print(viewController.searchBarText1.searchBarText = self.resultsArray[index!.row])
         }
-
     }
 }
 
@@ -76,7 +75,7 @@ extension SearchAutoCompleteTableViewController: UISearchBarDelegate {
     func searchBar(searchBar: UISearchBar,
                    textDidChange searchText: String){
         
-
+        
         
         let geocoder = Geocoder.sharedGeocoder
         
@@ -90,14 +89,11 @@ extension SearchAutoCompleteTableViewController: UISearchBarDelegate {
         let task = geocoder.geocode(options: options) { (placemarks, attribution, error) in
             let placemark = placemarks![0]
             let coordinate = placemark.location.coordinate
-
+            
             for placemark in placemarks! {
                 self.resultsArray.insert(placemark.qualifiedName, atIndex: 0)
             }
             self.tableView.reloadData()
-            
-            
-            
         }
     }
 }

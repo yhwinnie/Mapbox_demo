@@ -25,8 +25,6 @@ class ServiceManager {
     
     func requestActivitiesPlaces(searchBarText: String?, complete: (activitiesPlacesList: [Pin], coordinates: CLLocationCoordinate2D) -> Void) {
         
-        print("Activity: \(searchBarText)")
-        
         convertAddressToLatLon(searchBarText!) { (coordinates) in
             
         
@@ -87,7 +85,6 @@ class ServiceManager {
     
     func requestBobaPlaces(searchBarText: String, complete: (bobaPlacesList: [Pin], coordinates: CLLocationCoordinate2D) -> Void) {
         
-        print("Boba: \(searchBarText)")
         convertAddressToLatLon(searchBarText) { (coordinates) in
             
             
@@ -120,9 +117,6 @@ class ServiceManager {
                         bobaPlacesList.append(pin)
                     }
                     complete(bobaPlacesList: bobaPlacesList, coordinates: coordinates)
-                    
-
-
                 }
                 
             case .Failure(let error):
@@ -135,8 +129,6 @@ class ServiceManager {
     
     
     func allNearbyRestaurantsRequest (searchBarText: String, complete: (listRestaurants: [Pin], coordinates: CLLocationCoordinate2D) -> Void) {
-        
-        print("Restaurant: \(searchBarText)")
         
         convertAddressToLatLon(searchBarText) { (coordinates) in
             
@@ -334,14 +326,13 @@ class ServiceManager {
                     
                         let imageURL = "\(prefix)\(width)"+"x"+"\(height)\(suffix)"
                         complete(imageURL: imageURL)
-                    
                     }
-                
                 case .Failure(let error):
                     print(error)
             }
         }
     }
+
         
     
     func comparePrice(priceComparison: Int, tier: String) -> String {
