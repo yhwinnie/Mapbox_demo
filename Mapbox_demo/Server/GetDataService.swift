@@ -42,10 +42,17 @@ class GetDataService {
             var array = [String]()
             let fromPerson = snapshot.value!["from"] as! NSDictionary
             let toFriends = snapshot.value!["to"] as! NSDictionary
-            let getPlaceID = snapshot.value!["placeID"]
+            _ = snapshot.value!["placeID"]
             
             let date = snapshot.value!["date"]
-            req.date = date as! String
+            //req.date = date as! String
+            
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+
+            let dateFromString = dateFormatter.dateFromString(date as! String)
+            
+            req.date = dateFromString!
             
             for (key, value) in fromPerson {
                 req.fromPersonID = key as! String
@@ -109,7 +116,6 @@ class GetDataService {
                 if let userNameArray : NSArray = result.valueForKey("data") as? NSArray
                 {
                     if userNameArray.count == 0 {
-                        print("You do not have friends yet!")
                     } else {
                         
                         for friend in userNameArray {
@@ -168,6 +174,7 @@ class GetDataService {
                     let friends = FriendsNameFacebookID()
                     friends.name = name
                     friends.answer = value as! String
+                    friends.id = key as! String
                     friendsArray.append(friends)
                     complete(friendsInfo: friendsArray)
                 })

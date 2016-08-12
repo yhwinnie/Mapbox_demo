@@ -25,17 +25,31 @@ class FriendsTableViewController: UITableViewController {
     var place = Place()
     var uuid = NSUUID().UUIDString
     
+    var indicator: UIActivityIndicatorView!
+
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         if index.isEmpty {
             sendButton.enabled = false
         }
+        
+        indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+        indicator.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
+        indicator.center = self.tableView.center
+        self.tableView.addSubview(indicator)
+        indicator.bringSubviewToFront(self.tableView)
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        
+        self.indicator.startAnimating()
+        
         getDataServer.getFriendsInfo { (friendsList) in
             self.friendsArr = friendsList
             self.getPersonalInfo()
             dispatch_async(dispatch_get_main_queue()) {
                 self.tableView.reloadData()
+                self.indicator.stopAnimating()
             }
         }
         
@@ -51,6 +65,12 @@ class FriendsTableViewController: UITableViewController {
         }
     }
     
+    @IBOutlet weak var backButton: UIButton!
+    @IBAction func backButtonAction(sender: AnyObject) {
+        let vc = self.storyboard?.instantiateViewControllerWithIdentifier("tabBar") as! UITabBarController
+        vc.selectedIndex = 1
+        self.presentViewController(vc, animated: true, completion: nil)
+    }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
@@ -80,8 +100,8 @@ class FriendsTableViewController: UITableViewController {
             let dateFormatter = NSDateFormatter()
             dateFormatter.locale = NSLocale.currentLocale()
     
-            dateFormatter.dateStyle = NSDateFormatterStyle.FullStyle
-            var convertedDate = dateFormatter.stringFromDate(currentDate)
+            dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+            let convertedDate = dateFormatter.stringFromDate(currentDate)
             
             
             // Save other information
@@ -91,7 +111,9 @@ class FriendsTableViewController: UITableViewController {
             DataService.dataService.savePlaceToFirebase(friend.requestID, place: self.place)
             
         }
-        self.performSegueWithIdentifier("ToFriendsList", sender: nil)
+        let vc = self.storyboard?.instantiateViewControllerWithIdentifier("tabBar") as! UITabBarController
+        vc.selectedIndex = 1
+        self.presentViewController(vc, animated: true, completion: nil)
     }
     
     

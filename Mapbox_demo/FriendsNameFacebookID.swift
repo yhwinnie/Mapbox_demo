@@ -11,4 +11,5 @@ import Foundation
 class FriendsNameFacebookID {
     var name: String = ""
     var answer: String = ""
+    var id: String = ""
 }

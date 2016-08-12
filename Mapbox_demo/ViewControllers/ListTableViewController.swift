@@ -13,25 +13,39 @@ import Firebase
 import FBSDKLoginKit
 import FBSDKShareKit
 
-class ListTableViewController: UITableViewController {
+class ListTableViewController: UITableViewController, FBSDKAppInviteDialogDelegate {
     
     // Variables
     let getDataServer = GetDataService()
     var invitationArray = [Invitation]()
     var userFacebookId: String = ""
+    var details = [NSDate]()
+    
     
     // IBOutlet
     @IBOutlet weak var menuButton: UIBarButtonItem!
+    @IBOutlet weak var signOutButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if FBSDKAccessToken.currentAccessToken() == nil {
+            signOutButton.title = "Sign In"
+        }
         
         self.getDataServer.getFacebookID { (facebookID) in
             self.userFacebookId = facebookID
             self.getDataServer.requestInvitations(facebookID, complete: { (invitations) in
                 self.invitationArray = invitations
+                
+                
                 dispatch_async(dispatch_get_main_queue()) {
+                    
+                    
+                    self.invitationArray.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedDescending })
+                    
                     self.tableView.reloadData()
+                    
                 }
             })
         }
@@ -43,7 +57,6 @@ class ListTableViewController: UITableViewController {
         if let navigationBar = self.navigationController?.navigationBar {
             navigationBar.translucent = false
             navigationBar.tintColor = UIColor.whiteColor()
-            navigationBar.barTintColor = UIColor(red:0.20, green:0.60, blue:0.40, alpha:1.0)
             navigationBar.titleTextAttributes = NSDictionary(object: UIColor.whiteColor(), forKey: NSForegroundColorAttributeName) as? [String : AnyObject]
             navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
             navigationBar.shadowImage = UIImage()
@@ -51,33 +64,64 @@ class ListTableViewController: UITableViewController {
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
     }
     
+    func appInviteDialog(appInviteDialog: FBSDKAppInviteDialog!, didCompleteWithResults results: [NSObject : AnyObject]!) {
+        //TODO
+    }
+    func appInviteDialog(appInviteDialog: FBSDKAppInviteDialog!, didFailWithError error: NSError!) {
+        //TODO
+    }
+    
     
     @IBAction func signOutAction(sender: AnyObject) {
+        
         let loginManager = FBSDKLoginManager()
-        loginManager.logOut()
-        let vc = self.storyboard!.instantiateViewControllerWithIdentifier("tabBar")
-        self.presentViewController(vc, animated: true, completion: nil)
+        
+        if (sender.title == "Sign Out") {
+            loginManager.logOut()
+            let vc = self.storyboard!.instantiateViewControllerWithIdentifier("tabBar")
+            self.presentViewController(vc, animated: true, completion: nil)
+        }
+        else {
+            loginManager.logInWithReadPermissions(["public_profile", "email", "user_friends"], handler: { (result:FBSDKLoginManagerLoginResult!, error:NSError!) -> Void in
+                
+                let vc = self.storyboard!.instantiateViewControllerWithIdentifier("tabBar") as! UITabBarController
+                vc.selectedIndex = 1
+                self.presentViewController(vc, animated: true, completion: nil)
+            })
+        }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    
+    @IBAction func inviteFriends(sender: AnyObject) {
+        
+            
+            let content: FBSDKAppInviteContent = FBSDKAppInviteContent()
+            content.appLinkURL = NSURL(string: "https://fb.me/1011761262277370")!
+            //optionally set previewImageURL
+            //content.appInvitePreviewImageURL = NSURL(string: "https://itunes.apple.com/us/app/meal-out/id1142386653?mt=8")!
+            // Present the dialog. Assumes self is a view controller
+            // which implements the protocol `FBSDKAppInviteDialogDelegate`.
+            FBSDKAppInviteDialog.showFromViewController(self, withContent: content, delegate: self)
+        
     }
     
-    // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+        
         return 1
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         return self.invitationArray.count
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! NewsFeedTableViewCell
+        
+        
         
         var person: String = ""
         let invitation = invitationArray[indexPath.row]
@@ -89,13 +133,19 @@ class ListTableViewController: UITableViewController {
         }
         
         for friend in toFriends {
-            print(friend)
             person += " \(friend)"
         }
         
         cell.requestLabel?.text = "\(fromPerson) invited\(person)"
         cell.placeNameLabel?.text = "\(invitation.restaurantName)"
-        cell.dateLabel?.text = "\(invitation.date)"
+        
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = NSDateFormatterStyle.FullStyle
+        
+        let stringDate: String = formatter.stringFromDate(invitation.date)
+        
+        cell.dateLabel?.text = "\(stringDate)"
+        details.append(invitation.date)
         return cell
     }
     
@@ -105,14 +155,14 @@ class ListTableViewController: UITableViewController {
         let invite = invitationArray[indexPath.row]
         
         if invite.fromPersonID == userFacebookId {
-            let viewc = self.storyboard!.instantiateViewControllerWithIdentifier("SeeAnswer") as! SeeAnswerViewController
-            viewc.placeID = invite.placeID 
+            let viewc = self.storyboard!.instantiateViewControllerWithIdentifier("SeeAnswer1") as! GoingTableViewController
+            viewc.placeID = invite.placeID
             self.presentViewController(viewc, animated: true, completion: nil)
             
         } else {
             
-            let viewc = self.storyboard!.instantiateViewControllerWithIdentifier("respondView") as! ResponseViewController
-            viewc.placeID = invite.placeID 
+            let viewc = self.storyboard!.instantiateViewControllerWithIdentifier("RespondView") as! InvitationTableViewController
+            viewc.placeID = invite.placeID
             self.presentViewController(viewc, animated: true, completion: nil)
         }
     }

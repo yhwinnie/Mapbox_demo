@@ -14,6 +14,6 @@ class Invitation {
     var fromPersonName: String = ""
     var fromPersonID: String = ""
     var restaurantName: String = ""
-    var date: String = ""
+    var date: NSDate = NSDate()
 }
 

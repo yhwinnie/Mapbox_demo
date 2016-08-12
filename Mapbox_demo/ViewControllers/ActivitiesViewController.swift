@@ -46,7 +46,6 @@ class ActivitiesViewController: UIViewController, CLLocationManagerDelegate, MGL
         //self.locationManager.startUpdatingLocation()
         //var searchBarText = NSUserDefaults.standardUserDefaults().objectForKey("searchBarText")
         
-        print(searchBarText14)
         callServiceManager(searchBarText14)
         
     }
@@ -57,7 +56,7 @@ class ActivitiesViewController: UIViewController, CLLocationManagerDelegate, MGL
             let center = CLLocationCoordinate2D(latitude: coordinates.latitude, longitude: coordinates.longitude)
             self.mapView.setCenterCoordinate(center, zoomLevel: 12, animated: true)
             
-            list = activitiesPlacesList
+            //list = activitiesPlacesList
             
             for pin in activitiesPlacesList {
                 self.dropPin(pin)
@@ -79,7 +78,7 @@ class ActivitiesViewController: UIViewController, CLLocationManagerDelegate, MGL
         
         let options = ReverseGeocodeOptions(coordinate: CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude))
         
-        let task = geocoder.geocode(options: options) { (placemarks, attribution, error) in
+        _ = geocoder.geocode(options: options) { (placemarks, attribution, error) in
             let placemark = placemarks![0]
             self.callServiceManager(placemark.postalAddress!.street)
         }

@@ -42,7 +42,6 @@ class FilterPopUpViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         let viewController = storyboard.instantiateViewControllerWithIdentifier("Random") as! RandomPopViewController
         viewController.indexSelected = indexSelected
-        print(viewController.indexSelected)
         
     }
 }

@@ -16,9 +16,12 @@ target 'Mapbox_demo' do
 	pod 'ACTabScrollView', :git => 'https://github.com/azurechen/ACTabScrollView.git'
 	pod 'Firebase', '>=2.4.2'
 	pod 'Firebase/Database'
-	pod 'Firebase/Auth'
-   
+	pod 'FirebaseAuth'
+	pod 'Fabric'
+	pod 'Crashlytics'
+	
 
+   https://itunes.apple.com/us/app/meal-out/id1142386653?mt=8
 
 
 

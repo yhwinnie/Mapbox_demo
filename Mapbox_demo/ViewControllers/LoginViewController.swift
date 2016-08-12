@@ -28,10 +28,10 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, FBSDKAppI
         
         // Do any additional setup after loading the view.
         
-        label.textAlignment = NSTextAlignment.Center;
-        label.numberOfLines = 0;
-        label.font = UIFont.systemFontOfSize(14.0);
-        label.text = "Seems like you have not logged in yet,\nto send request you need to log in \nwith Facebook.";
+//        label.textAlignment = NSTextAlignment.Center;
+//        label.numberOfLines = 0;
+//        label.font = UIFont.systemFontOfSize(14.0);
+//        label.text = "Seems like you have not logged in yet,\nto send request you need to log in \nwith Facebook.";
         
         
         // Optional: Place the button in the center of your view.
@@ -43,11 +43,9 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, FBSDKAppI
     }
     
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
-        print("User did logout")
     }
     
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
-        print("User logged in")
         
         let accessToken = FBSDKAccessToken.currentAccessToken().tokenString
         let credential = FIRFacebookAuthProvider.credentialWithAccessToken(accessToken)

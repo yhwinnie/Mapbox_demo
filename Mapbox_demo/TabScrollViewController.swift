@@ -30,7 +30,7 @@ class TabScrollViewController: UIViewController, ACTabScrollViewDelegate, ACTabS
     
     @IBOutlet weak var tabScrollView: ACTabScrollView!
     
-    lazy   var searchBar:UISearchBar = UISearchBar(frame: CGRectMake(0, 0, 300, 20))
+    var searchBar:UISearchBar!
     
     var viewControllers = [UIViewController]()
     var indexSelected: Int = 0
@@ -38,31 +38,37 @@ class TabScrollViewController: UIViewController, ACTabScrollViewDelegate, ACTabS
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        let screenSize: CGRect = UIScreen.mainScreen().bounds
+        searchBar = UISearchBar(frame: CGRectMake(0, 0, screenSize.width - 30, 20))
         searchBar.text = searchBarText1.searchBarText
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation()
         
+
         
         searchBar.delegate = self
         searchBar.placeholder = "Enter address"
+        
+        //addConstraints()
+        
         
         let leftNavBarButton = UIBarButtonItem(customView:searchBar)
         self.navigationItem.leftBarButtonItem = leftNavBarButton
         
         tabScrollView.delegate = self
         tabScrollView.dataSource = self
-        tabScrollView.defaultPage = 3
+        tabScrollView.defaultPage = 2
         
         let storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         viewControllers.append(storyboard.instantiateViewControllerWithIdentifier("MapView") as! ViewController)
         viewControllers.append(storyboard.instantiateViewControllerWithIdentifier("BobaMap") as! BobaMapViewController)
-        viewControllers.append(storyboard.instantiateViewControllerWithIdentifier("ActivitiesMap") as! ActivitiesViewController)
+        //viewControllers.append(storyboard.instantiateViewControllerWithIdentifier("ActivitiesMap") as! ActivitiesViewController)
         
         if self.revealViewController() != nil {
             menuButton.target = self.revealViewController()
-            menuButton.action = "revealToggle:"
+            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
         
@@ -78,14 +84,30 @@ class TabScrollViewController: UIViewController, ACTabScrollViewDelegate, ACTabS
         // set navigation bar appearance
         if let navigationBar = self.navigationController?.navigationBar {
             navigationBar.translucent = false
-            navigationBar.tintColor = UIColor.whiteColor()
-            navigationBar.barTintColor = UIColor(red:0.20, green:0.60, blue:0.40, alpha:1.0)
+            //navigationBar.tintColor = UIColor.whiteColor()
+            //navigationBar.barTintColor = UIColor(red:0.20, green:0.60, blue:0.40, alpha:1.0)
             navigationBar.titleTextAttributes = NSDictionary(object: UIColor.whiteColor(), forKey: NSForegroundColorAttributeName) as? [String : AnyObject]
             navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
             navigationBar.shadowImage = UIImage()
         }
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+    }
+    
+    
+    func addConstraints() {
+        let topLeftViewLeadingConstraint = NSLayoutConstraint(item: self.searchBar, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal
+            , toItem: self.view, attribute: NSLayoutAttribute.Leading, multiplier: 1, constant: 2)
         
+        let topLeftViewTopConstraint = NSLayoutConstraint(item: self.searchBar, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal
+            , toItem: self.view, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 2)
+        
+        let topLeftViewTrailingConstraint = NSLayoutConstraint(item: self.searchBar, attribute: NSLayoutAttribute.Trailing, relatedBy: NSLayoutRelation.Equal
+            , toItem: self.view, attribute: NSLayoutAttribute.Trailing, multiplier: 1, constant: 2)
+        
+//        let bottomLeftViewBottomConstraint = NSLayoutConstraint(item: self.searchBar, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal
+//            , toItem: self.navigationController?.navigationBar, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 2)
+        
+        NSLayoutConstraint.activateConstraints([topLeftViewLeadingConstraint, topLeftViewTopConstraint, topLeftViewTrailingConstraint])
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -99,11 +121,11 @@ class TabScrollViewController: UIViewController, ACTabScrollViewDelegate, ACTabS
     }
     
     func tabScrollView(tabScrollView: ACTabScrollView, didChangePageTo index: Int) {
-        tabSelected = index
+        //tabSelected = index
     }
     
     func tabScrollView(tabScrollView: ACTabScrollView, didScrollPageTo index: Int) {
-        tabSelected = index
+        //tabSelected = index
     }
     
     func numberOfPagesInTabScrollView(tabScrollView: ACTabScrollView) -> Int {
@@ -149,19 +171,21 @@ extension TabScrollViewController: CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
         let location = locations.last
-        let center = CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude)
+        _ = CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude)
         
         self.locationManager.stopUpdatingLocation()
         
         let options = ReverseGeocodeOptions(coordinate: CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude))
         
-        let task = geocoder.geocode(options: options) { (placemarks, attribution, error) in
-            let placemark = placemarks![0]
-            self.searchBar.text = "Current Location"
-            // NSUserDefaults.standardUserDefaults().setObject(self.searchBar.text, forKey: "searchBarText")
-            print(self.searchBar.text)
-            searchBarText14 = (placemark.postalAddress?.street)!
-            //NSUserDefaults.standardUserDefaults().setObject(self.searchBar.text, forKey: "searchBarText")
+        geocoder.geocode(options: options) { (placemarks, attribution, error) in
+            
+            if let placemarks = placemarks {
+                let placemark = placemarks[0]
+                self.searchBar.text = "Current Location"
+                
+                searchBarText14 = (placemark.postalAddress?.street)!
+            }
+            
         }
     }
     

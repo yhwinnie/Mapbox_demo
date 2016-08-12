@@ -44,15 +44,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        goButton.layer.cornerRadius = 5;
+        goButton.layer.borderWidth = 2;
+        goButton.layer.borderColor = UIColor.whiteColor().CGColor
+        
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
         self.mapView.showsUserLocation = true
         let rootRef = FIRDatabase.database().reference()
-        let ref = "\(rootRef)/user"
+        _ = "\(rootRef)/user"
         
-        print(rootRef)
-        print(ref)
+
         
         UIChanges()
     }
@@ -65,7 +68,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDel
         
         //let searchBarText = NSUserDefaults.standardUserDefaults().objectForKey("searchBarText")
         
-        print(searchBarText14)
         serviceManager.allNearbyRestaurantsRequest(String(searchBarText14)) { (listRestaurants, coordinates) in
             let center = CLLocationCoordinate2D(latitude: coordinates.latitude, longitude: coordinates.longitude)
             self.mapView.setCenterCoordinate(center, zoomLevel: 12, animated: true)
@@ -73,9 +75,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDel
             let currentPoint = MGLPointAnnotation()
             currentPoint.coordinate = coordinates
             self.mapView.addAnnotation(currentPoint)
-            list = listRestaurants
             for pin in listRestaurants {
-                //print(each)
                 self.dropPin(pin)
             }
         }
@@ -122,23 +122,39 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDel
         let center = CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude)
         
         
-        mapView.setCenterCoordinate(center, zoomLevel: 14, animated: true)
+        mapView.setCenterCoordinate(center, zoomLevel: 20, animated: true)
         self.locationManager.stopUpdatingLocation()
         
         let options = ReverseGeocodeOptions(coordinate: CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude))
         
-        let task = geocoder.geocode(options: options) { (placemarks, attribution, error) in
+        _ = geocoder.geocode(options: options) { (placemarks, attribution, error) in
             let placemark = placemarks![0]
             self.currentLocation = placemark.name
+            self.callServiceManager(placemark.postalAddress!.street)
         }
     }
     
+    
+    func callServiceManager(searchBarText: String) {
+        serviceManager.allNearbyRestaurantsRequest(searchBarText14, complete: { (listRestaurants, coordinates) in
+  
+            let center = CLLocationCoordinate2D(latitude: coordinates.latitude, longitude: coordinates.longitude)
+            self.mapView.setCenterCoordinate(center, zoomLevel: 12, animated: true)
+            //list = bobaPlacesList
+            for pin in listRestaurants {
+                self.dropPin(pin)
+            }
+        })
+        self.mapView.reloadInputViews()
+        
+    }
     
     
     
     func  locationManager(manager: CLLocationManager, didFailWithError error: NSError)
     {
         print ("Errors:" + error.localizedDescription)
+        
     }
     
     //    func covertAddressToLatLon(addresses: [String]) {
@@ -160,31 +176,31 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDel
     //        }
     //    }
     
-    func mapView(mapView: MGLMapView, imageForAnnotation annotation: MGLAnnotation) -> MGLAnnotationImage? {
-        // Try to reuse the existing ‘pisa’ annotation image, if it exists.
-        var annotationImage = mapView.dequeueReusableAnnotationImageWithIdentifier("point")
-        
-        if annotationImage == nil {
-            // Leaning Tower of Pisa by Stefan Spieler from the Noun Project.
-            var image = UIImage(named: "restaurant-1")!
-            
-            // The anchor point of an annotation is currently always the center. To
-            // shift the anchor point to the bottom of the annotation, the image
-            // asset includes transparent bottom padding equal to the original image
-            // height.
-            //
-            // To make this padding non-interactive, we create another image object
-            // with a custom alignment rect that excludes the padding.
-            image = image.imageWithAlignmentRectInsets(UIEdgeInsetsMake(0, 0, image.size.height/2, 0))
-            
-            // Initialize the ‘pisa’ annotation image with the UIImage we just loaded.
-            annotationImage = MGLAnnotationImage(image: image, reuseIdentifier: "point")
-            
-            
-        }
-        
-        return annotationImage
-    }
+//    func mapView(mapView: MGLMapView, imageForAnnotation annotation: MGLAnnotation) -> MGLAnnotationImage? {
+//        // Try to reuse the existing ‘pisa’ annotation image, if it exists.
+//        var annotationImage = mapView.dequeueReusableAnnotationImageWithIdentifier("point")
+//        
+//        if annotationImage == nil {
+//            // Leaning Tower of Pisa by Stefan Spieler from the Noun Project.
+//            var image = UIImage(named: "restaurant-1")!
+//            
+//            // The anchor point of an annotation is currently always the center. To
+//            // shift the anchor point to the bottom of the annotation, the image
+//            // asset includes transparent bottom padding equal to the original image
+//            // height.
+//            //
+//            // To make this padding non-interactive, we create another image object
+//            // with a custom alignment rect that excludes the padding.
+//            image = image.imageWithAlignmentRectInsets(UIEdgeInsetsMake(0, 0, image.size.height/2, 0))
+//            
+//            // Initialize the ‘pisa’ annotation image with the UIImage we just loaded.
+//            annotationImage = MGLAnnotationImage(image: image, reuseIdentifier: "point")
+//            
+//            
+//        }
+//        
+//        return annotationImage
+//    }
     
     
     func polyRoute() {
@@ -220,7 +236,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDel
             profileIdentifier: MBDirectionsProfileIdentifierAutomobile)
         options.includesSteps = true
         
-        let task = directions.calculateDirections(options: options) { (waypoints, routes, error) in
+        _ = directions.calculateDirections(options: options) { (waypoints, routes, error) in
             guard error == nil else {
                 //print("Error calculating directions: \(error!)")
                 return
@@ -230,17 +246,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MGLMapViewDel
                 //print("Route via \(leg):")
                 
                 let distanceFormatter = NSLengthFormatter()
-                let formattedDistance = distanceFormatter.stringFromMeters(route.distance)
+                _ = distanceFormatter.stringFromMeters(route.distance)
                 
                 let travelTimeFormatter = NSDateComponentsFormatter()
                 travelTimeFormatter.unitsStyle = .Short
-                let formattedTravelTime = travelTimeFormatter.stringFromTimeInterval(route.expectedTravelTime)
+                _ = travelTimeFormatter.stringFromTimeInterval(route.expectedTravelTime)
                 
                 //print("Distance: \(formattedDistance); ETA: \(formattedTravelTime!)")
                 
                 for step in leg.steps {
                     //print("\(step.instructions)")
-                    let formattedDistance = distanceFormatter.stringFromMeters(step.distance)
+                    _ = distanceFormatter.stringFromMeters(step.distance)
                     //print("— \(formattedDistance) —")
                 }
                 

@@ -10,12 +10,11 @@ import UIKit
 
 class ListPlacesTableViewController: UITableViewController {
     
-    var populateList = list
+    //var populateList = list
     var serviceManager = ServiceManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("B")
         
         
         // Uncomment the following line to preserve selection between presentations
@@ -28,7 +27,7 @@ class ListPlacesTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        var populateList = list
+        //var populateList = list
         
         
         
@@ -48,15 +47,14 @@ class ListPlacesTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return populateList.count
+        return 7
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
         
-        cell.textLabel!.text = populateList[indexPath.row].name
-        print("A")
+       // cell.textLabel!.text = populateList[indexPath.row].name
         
         return cell
     }

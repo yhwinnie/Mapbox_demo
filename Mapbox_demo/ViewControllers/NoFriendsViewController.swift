@@ -13,6 +13,7 @@ import FBAudienceNetwork
 
 class NoFriendsViewController: UIViewController, FBSDKAppInviteDialogDelegate {
     
+    @IBOutlet weak var inviteButton: UIButton!
     @IBOutlet weak var label: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +23,7 @@ class NoFriendsViewController: UIViewController, FBSDKAppInviteDialogDelegate {
         label.font = UIFont.systemFontOfSize(14.0);
         label.text = "Seems like you don't have any friends yet.\nWhy don't you invite your friends to use the app?";
         self.view.addSubview(label);
+        inviteButton.layer.cornerRadius = 5
         
     }
     
@@ -42,9 +44,9 @@ class NoFriendsViewController: UIViewController, FBSDKAppInviteDialogDelegate {
     @IBAction func inviteFriendsAction(sender: AnyObject) {
         
         let content: FBSDKAppInviteContent = FBSDKAppInviteContent()
-        content.appLinkURL = NSURL(string: "https://www.mydomain.com/myapplink")!
+        content.appLinkURL = NSURL(string: "https://itunes.apple.com/us/app/meal-out/id1142386653?mt=8")!
         //optionally set previewImageURL
-        content.appInvitePreviewImageURL = NSURL(string: "https://www.mydomain.com/my_invite_image.jpg")!
+        //content.appInvitePreviewImageURL = NSURL(string: "https://itunes.apple.com/us/app/meal-out/id1142386653?mt=8")!
         // Present the dialog. Assumes self is a view controller
         // which implements the protocol `FBSDKAppInviteDialogDelegate`.
         FBSDKAppInviteDialog.showFromViewController(self, withContent: content, delegate: self)

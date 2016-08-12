@@ -35,13 +35,13 @@ class DataService {
     
     func saveInformationToFirebase(userId: String, uuid: String, friendRequestId: String, friendId: String, userName: String, friendName: String, array: [String: String], date: String) {
         // Save requests to users
-        let requestsTo = self.ref.child("users/\(userId)/requests/\(uuid)").setValue(true)
+        _ = self.ref.child("users/\(userId)/requests/\(uuid)").setValue(true)
         self.ref.child("users/\(userId)/name").setValue(userName)
-        let from_request = self.ref.child("users/\(friendId)/requests/\(friendRequestId)").setValue(true)
+        _ = self.ref.child("users/\(friendId)/requests/\(friendRequestId)").setValue(true)
         self.ref.child("users/\(friendId)/name").setValue(friendName)
         
         // Save answers
-        let answer = self.ref.child("answers/\(uuid)/\(friendId)").setValue("Pending")
+        _ = self.ref.child("answers/\(uuid)/\(friendId)").setValue("Pending")
         
         // Save requests
         self.ref.child("requests/\(friendRequestId)/to").setValue(array)
