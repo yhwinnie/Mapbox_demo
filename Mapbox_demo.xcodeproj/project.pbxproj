@@ -837,8 +837,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Winnie Wen (7AE8Z55NJ7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Winnie Wen (7AE8Z55NJ7)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Mapbox_demo/FacebookSDKs-iOS",
@@ -849,7 +849,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wiwen.Mappie;
 				PRODUCT_NAME = Choicest;
-				PROVISIONING_PROFILE = "19d31d3b-46fa-42f4-8f34-5d770fb00d94";
+				PROVISIONING_PROFILE = "5d21ceed-b5ef-40a1-8eb9-a2d23478f42f";
 				SWIFT_OBJC_BRIDGING_HEADER = "Mapbox_demo/Mapbox_demo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -861,8 +861,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Winnie Wen (7AE8Z55NJ7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Winnie Wen (7AE8Z55NJ7)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Mapbox_demo/FacebookSDKs-iOS",
@@ -873,7 +873,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wiwen.Mappie;
 				PRODUCT_NAME = Choicest;
-				PROVISIONING_PROFILE = "19d31d3b-46fa-42f4-8f34-5d770fb00d94";
+				PROVISIONING_PROFILE = "5d21ceed-b5ef-40a1-8eb9-a2d23478f42f";
 				SWIFT_OBJC_BRIDGING_HEADER = "Mapbox_demo/Mapbox_demo-Bridging-Header.h";
 			};
 			name = Release;
